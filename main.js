@@ -127,6 +127,44 @@
     if (foot && c.contact.phone) foot.textContent = "© " + new Date().getFullYear() + " L7 iHOME · " + c.contact.phone;
   }
 
+  // ---- hero: обертовий подіум 360 (з дизайну "Капсула 360°") ----
+  (function () {
+    var podiumEl = document.getElementById("heroPodium");
+    var playBtn = document.getElementById("heroPlay");
+    if (!podiumEl || !playBtn) return;
+
+    var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var ICON_PAUSE = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
+    var ICON_PLAY = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8V4z"/></svg>';
+
+    var playing = true;
+    try { playing = localStorage.getItem("l7_turntable_playing") !== "0"; } catch (e) {}
+    if (reduce) playing = false;
+
+    var last = performance.now();
+    var angle = 0;
+    var SPEED = 26; // deg/sec
+
+    function render(now) {
+      var dt = Math.min(0.05, (now - last) / 1000);
+      last = now;
+      if (playing) angle = (angle + dt * SPEED) % 360;
+      podiumEl.style.setProperty("--spin", angle.toFixed(2) + "deg");
+      requestAnimationFrame(render);
+    }
+
+    function setPlaying(v) {
+      playing = v;
+      playBtn.innerHTML = v ? ICON_PAUSE : ICON_PLAY;
+      playBtn.setAttribute("aria-label", v ? "Пауза" : "Відтворити");
+      try { localStorage.setItem("l7_turntable_playing", v ? "1" : "0"); } catch (e) {}
+    }
+    playBtn.addEventListener("click", function () { setPlaying(!playing); });
+
+    setPlaying(playing);
+    if (!reduce) requestAnimationFrame(function (t) { last = t; render(t); });
+  })();
+
   // ---- spec slider: native scroll-snap + arrows + dots ----
   function initSpecSlider(count) {
     var slider = document.getElementById("specSlider");

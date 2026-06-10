@@ -288,33 +288,97 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); color: var(--text-stro
 .nav-toggle svg { display: block; }
 
 /* ============================================================
-   HERO  (deck slide 01 — Title, studio backdrop)
+   HERO — повноекранний подіум 360° з капсулою, текст зверху
+   (з дизайну "L7 iHOME — Капсула 360°")
    ============================================================ */
-.hero { background: var(--bg-studio); overflow: hidden; }
-.hero .container {
-  display: grid; grid-template-columns: 1.05fr 1fr; gap: var(--space-12);
-  align-items: center; padding-top: var(--space-20); padding-bottom: var(--space-20);
+.hero-360 {
+  position: relative;
+  height: calc(100svh - 73px);
+  min-height: 580px;
+  overflow: hidden;
+  background: radial-gradient(120% 95% at 50% 34%, #FFFFFF 0%, #F5F7F9 40%, #E7EBEF 74%, #DBE0E6 100%);
 }
-.hero h1 {
+.hero-360::after { /* grain з дизайну */
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .5;
+  background: radial-gradient(140% 120% at 50% 120%, rgba(22,24,29,.10), transparent 55%);
+}
+
+.hero-copy { position: relative; z-index: 6; text-align: center; padding-top: clamp(20px, 4.5vh, 48px); }
+.hero-copy h1 {
   font-weight: var(--fw-extrabold);
-  font-size: clamp(44px, 6vw, var(--fs-display));
+  font-size: clamp(40px, 5.4vw, 64px);
   line-height: var(--lh-tight); letter-spacing: var(--ls-tight);
-  margin-top: var(--space-6);
+  margin-top: var(--space-5);
 }
-.hero h1 .accent { color: var(--azure-500); }
-.hero .lead { margin: var(--space-6) 0 0; max-width: 520px; }
-.hero-cta { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-top: var(--space-10); }
+.hero-copy h1 .accent { color: var(--azure-500); }
+.hero-copy .lead { margin: var(--space-4) auto 0; max-width: 560px; color: var(--text-muted); }
+.hero-cta { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-top: var(--space-8); justify-content: center; position: relative; z-index: 6; }
+
+/* ---- сцена з подіумом: на весь герой, як в оригінальному дизайні ---- */
+.hero-scene {
+  position: absolute; inset: 0; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+  transform: translateY(5.5%);
+}
+.hero-scene .stage {
+  position: relative;
+  width: min(99vw, calc((100svh - 73px) * 1700 / 980 * 0.98));
+  aspect-ratio: 1700 / 980;
+  perspective: 2200px; perspective-origin: 50% 42%;
+}
+.hero-scene .rig { position: absolute; inset: 0; transform-style: preserve-3d; will-change: transform; }
+
+.podium {
+  position: absolute; left: 50%; top: 78%; width: 86%; aspect-ratio: 1; translate: -50% -50%;
+  transform: rotateX(74deg) rotateZ(var(--spin, 0deg));
+  transform-style: preserve-3d; pointer-events: none;
+}
+.podium::before {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  background:
+    repeating-conic-gradient(from 0deg, rgba(74,160,245,0) 0deg 7.4deg, rgba(74,160,245,.30) 7.4deg 8.4deg),
+    conic-gradient(from 0deg, rgba(74,160,245,.22), rgba(74,160,245,0) 90deg, rgba(74,160,245,0) 270deg, rgba(74,160,245,.22)),
+    radial-gradient(circle, rgba(255,255,255,0) 55%, rgba(74,160,245,.22) 60%, rgba(74,160,245,0) 64%),
+    radial-gradient(circle, rgba(22,24,29,.06) 0%, rgba(22,24,29,0) 70%);
+  -webkit-mask: radial-gradient(circle, #000 30%, rgba(0,0,0,.5) 62%, transparent 73%);
+          mask: radial-gradient(circle, #000 30%, rgba(0,0,0,.5) 62%, transparent 73%);
+}
+.podium::after { content: ""; position: absolute; inset: 12%; border-radius: 50%; border: 1px solid rgba(74,160,245,.16); }
+
+.cap-shadow {
+  position: absolute; left: 50%; top: 79%; width: 58%; height: 9%; translate: -50% -50%;
+  background: radial-gradient(closest-side, rgba(22,24,29,.42), rgba(22,24,29,.16) 55%, transparent 78%);
+  filter: blur(7px); z-index: 1;
+}
+.hero-scene .cap { position: absolute; inset: 0; transform-style: preserve-3d; z-index: 2; }
+.hero-scene .frame {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;
+  -webkit-mask: radial-gradient(122% 96% at 50% 47%, #000 56%, rgba(0,0,0,.6) 78%, transparent 94%);
+          mask: radial-gradient(122% 96% at 50% 47%, #000 56%, rgba(0,0,0,.6) 78%, transparent 94%);
+  backface-visibility: hidden;
+}
+
+/* ---- низ героя: контакти + пуск/пауза ---- */
+.hero-foot {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 7;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-4);
+  padding: 0 var(--space-10) var(--space-6);
+}
+.play { pointer-events: auto; }
 .hero-contacts {
-  display: flex; gap: var(--space-5); align-items: center; margin-top: var(--space-12);
-  font-family: var(--font-mono); font-size: var(--fs-body); letter-spacing: 0.04em; color: var(--text-body);
+  display: flex; gap: var(--space-5); align-items: center;
+  font-family: var(--font-mono); font-size: var(--fs-body-sm); letter-spacing: 0.04em; color: var(--text-body);
 }
 .hero-contacts .dot { color: var(--border-strong); }
-
-.hero-visual { position: relative; padding: var(--space-6) 0; }
-.hero-visual img { width: 100%; object-fit: contain; filter: drop-shadow(var(--shadow-float)); }
-.hero-visual .badges { position: absolute; top: 0; left: 0; display: flex; gap: var(--space-2); }
-.hero-visual .callout--glass { position: absolute; left: 4%; bottom: 6%; }
-.hero-visual .callout--alloy { position: absolute; right: 0; top: 18%; }
+.play {
+  width: 52px; height: 52px; border-radius: var(--radius-pill); border: var(--bw-1) solid var(--border-default);
+  background: rgba(255,255,255,.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-strong);
+  transition: background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+.play:hover { background: var(--white); }
+.play:active { transform: scale(.95); }
 
 /* ============================================================
    LINEUP  (deck slide 02 — Модельний ряд)
@@ -468,8 +532,6 @@ a.model-card { display: block; color: inherit; }
    RESPONSIVE
    ============================================================ */
 @media (max-width: 1024px) {
-  .hero .container { grid-template-columns: 1fr; }
-  .hero-visual { order: -1; max-width: 560px; }
   .lineup-grid { grid-template-columns: 1fr 1fr; }
   .spec-slide { grid-template-columns: 1fr; gap: var(--space-8); }
   .spec-visual { min-height: 380px; }
@@ -481,6 +543,8 @@ a.model-card { display: block; color: inherit; }
   .lineup-grid, .adv-grid { grid-template-columns: 1fr; }
   .stat-tiles { flex-direction: column; }
   .contact-details { gap: var(--space-8); }
+  .hero-copy h1 { font-size: 34px; }
+  .hero-foot { padding: 0 var(--space-5) var(--space-6); }
   .hero-contacts { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
   .hero-contacts .dot { display: none; }
 

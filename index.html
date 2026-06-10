@@ -33,32 +33,37 @@
 
   <span id="top"></span>
 
-  <!-- ================= HERO (slide 01 — Title) ================= -->
-  <section class="hero">
-    <div class="container">
-      <div>
-        <span class="badge badge--outline" data-cms="hero.badge">Український виробник капсульних домів</span>
-        <h1><span data-cms="hero.title1">Простір майбутнього.</span><br><span class="accent" data-cms="hero.title2">Вже сьогодні.</span></h1>
-        <p class="lead" data-cms="hero.lead">Преміальні капсульні будинки під ключ — для приватного життя, глемпінгу та бізнесу.</p>
-        <div class="hero-cta">
-          <a href="#contact" class="btn btn--primary">Замовити прорахунок →</a>
-          <a href="#models" class="btn btn--ghost">Модельний ряд</a>
-        </div>
-        <div class="hero-contacts">
-          <span data-cms="hero.phone">+380 93 938 2777</span>
-          <span class="dot">·</span>
-          <span data-cms="hero.site">L7IHOME.COM</span>
+  <!-- ================= HERO (повноекранний подіум 360 + текст) ================= -->
+  <section class="hero hero-360">
+    <div class="container hero-copy">
+      <span class="badge badge--outline" data-cms="hero.badge">Український виробник капсульних домів</span>
+      <h1><span data-cms="hero.title1">Простір майбутнього.</span><br><span class="accent" data-cms="hero.title2">Вже сьогодні.</span></h1>
+      <p class="lead" data-cms="hero.lead">Преміальні капсульні будинки під ключ — для приватного життя, глемпінгу та бізнесу.</p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn--primary">Замовити прорахунок →</a>
+        <a href="#models" class="btn btn--ghost">Модельний ряд</a>
+      </div>
+    </div>
+
+    <div class="hero-scene" aria-hidden="false">
+      <div class="stage">
+        <div class="rig">
+          <div class="podium" id="heroPodium"></div>
+          <div class="cap-shadow"></div>
+          <div class="cap">
+            <img class="frame" id="heroCapImg" src="assets/capsule-360.jpg" alt="Капсульний будинок L7" data-cms-img="hero.img">
+          </div>
         </div>
       </div>
-      <div class="hero-visual">
-        <div class="badges">
-          <span class="badge badge--ink" data-cms="hero.imgCode">L7-T8</span>
-          <span class="badge badge--brand" data-cms="hero.imgTag">Хіт продажів</span>
-        </div>
-        <img src="assets/capsule-t8.jpg" alt="Капсульний будинок L7" data-cms-img="hero.img">
-        <span class="callout callout--glass" data-cms="hero.callout1">Подвійне ізоляційне скло</span>
-        <span class="callout callout--alloy" data-cms="hero.callout2">Алюмінієвий сплав + фторвуглець</span>
+    </div>
+
+    <div class="hero-foot">
+      <div class="hero-contacts">
+        <span data-cms="hero.phone">+380 93 938 2777</span>
+        <span class="dot">·</span>
+        <span data-cms="hero.site">L7IHOME.COM</span>
       </div>
+      <button class="play" id="heroPlay" aria-label="Пауза"></button>
     </div>
   </section>
 
