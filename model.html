@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>L7 iHOME — Капсула</title>
+  <meta name="description" content="Капсульний будинок L7 iHOME — характеристики, фото, прорахунок під ключ.">
+  <link rel="icon" href="assets/logo-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ---- model page ---- */
+    .crumbs {
+      padding: var(--space-6) 0 0;
+      font-family: var(--font-mono); font-size: var(--fs-caption); letter-spacing: 0.06em;
+    }
+    .crumbs a { color: var(--text-muted); }
+    .crumbs a:hover { color: var(--text-strong); }
+    .crumbs .sep { color: var(--border-strong); margin: 0 8px; }
+    .crumbs .here { color: var(--text-strong); }
+
+    .product { padding: var(--space-10) 0 var(--space-20); }
+    .product .container { display: grid; grid-template-columns: 1.15fr 1fr; gap: var(--space-16); align-items: start; }
+
+    .product-visual {
+      position: relative; background: var(--bg-studio);
+      border: var(--bw-hair) solid var(--border-hairline); border-radius: var(--radius-2xl);
+      display: flex; align-items: center; justify-content: center; padding: var(--space-10);
+      min-height: 440px;
+    }
+    .product-visual .badges { position: absolute; top: 22px; left: 22px; display: flex; gap: var(--space-2); }
+    .product-visual img { width: 100%; object-fit: contain; filter: drop-shadow(var(--shadow-float)); }
+    .product-visual .callout--glass { position: absolute; left: 30px; bottom: 28px; }
+    .product-visual .callout--alloy { position: absolute; right: 30px; top: 96px; }
+
+    .gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-3); margin-top: var(--space-3); }
+    .gallery button {
+      padding: 0; border: var(--bw-hair) solid var(--border-hairline); border-radius: var(--radius-lg);
+      overflow: hidden; cursor: pointer; background: var(--bg-studio); height: 84px;
+      transition: border-color var(--dur-fast) var(--ease-out);
+    }
+    .gallery button.active { border-color: var(--azure-500); box-shadow: 0 0 0 1px var(--azure-500); }
+    .gallery button img { width: 100%; height: 100%; object-fit: cover; }
+
+    .product-info h1 { font-weight: var(--fw-extrabold); font-size: 46px; letter-spacing: var(--ls-tight); line-height: var(--lh-tight); margin-top: var(--space-3); }
+    .product-info .desc { margin: var(--space-5) 0 0; font-size: var(--fs-body-lg); line-height: var(--lh-relaxed); color: var(--text-muted); }
+    .product-cta { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-top: var(--space-8); }
+
+    .other-models { background: var(--surface-sunken); }
+
+    @media (max-width: 1024px) {
+      .product .container { grid-template-columns: 1fr; gap: var(--space-8); }
+      .product-visual { min-height: 340px; }
+    }
+    @media (max-width: 720px) {
+      .product-info h1 { font-size: 34px; }
+      .gallery { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header" id="siteHeader">
+    <div class="container">
+      <a href="index.html" class="wordmark">
+        <img src="assets/logo-mark.svg" alt="L7 iHOME">
+        <span class="word">iHOME</span>
+      </a>
+      <nav class="mainnav">
+        <a href="index.html#models">Моделі</a>
+        <a href="index.html#spec">Характеристики</a>
+        <a href="index.html#business">Для бізнесу</a>
+        <a href="index.html#contact">Контакти</a>
+      </nav>
+      <span class="nav-phone" data-cms="nav.phone">+380 93 938 2777</span>
+      <a href="index.html#contact" class="btn btn--primary btn--sm">Замовити прорахунок</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Меню">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= BREADCRUMBS ================= -->
+  <div class="container crumbs">
+    <a href="index.html">Головна</a><span class="sep">/</span>
+    <a href="index.html#models">Моделі</a><span class="sep">/</span>
+    <span class="here" id="crumbName">Капсула</span>
+  </div>
+
+  <!-- ================= PRODUCT ================= -->
+  <section class="product">
+    <div class="container">
+      <div>
+        <div class="product-visual">
+          <div class="badges">
+            <span class="badge badge--ink" id="pCode"></span>
+            <span class="badge badge--brand" id="pTag" hidden></span>
+          </div>
+          <img id="pImg" src="" alt="">
+          <span class="callout callout--glass" id="pCallout1" hidden></span>
+          <span class="callout callout--alloy" id="pCallout2" hidden></span>
+        </div>
+        <div class="gallery" id="pGallery" hidden></div>
+      </div>
+
+      <div class="product-info">
+        <span class="eyebrow">Характеристики</span>
+        <h1 id="pName">Капсула</h1>
+        <p class="desc" id="pDesc"></p>
+        <div class="stat-tiles">
+          <div class="stat-tile">
+            <span class="eyebrow" id="pStat1Label">Корисна площа</span>
+            <div class="val" id="pStat1Value"></div>
+          </div>
+          <div class="stat-tile">
+            <span class="eyebrow" id="pStat2Label">Гостей</span>
+            <div class="val" id="pStat2Value"></div>
+          </div>
+        </div>
+        <div id="pRows"></div>
+        <div class="product-cta">
+          <a href="tel:+380939382777" class="btn btn--primary" id="pTel">Замовити прорахунок →</a>
+          <a href="index.html#models" class="btn btn--ghost">Усі моделі</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= OTHER MODELS ================= -->
+  <section class="other-models section-pad">
+    <div class="container">
+      <span class="eyebrow">Модельний ряд</span>
+      <h2 class="section-title">Інші моделі</h2>
+      <div class="lineup-grid" id="otherModels"></div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <a href="index.html" class="wordmark is-inverse">
+        <img src="assets/logo-mark.svg" alt="L7 iHOME">
+        <span class="word">iHOME</span>
+      </a>
+      <span>Простір майбутнього. Вже сьогодні.</span>
+      <span data-cms="footer.phone">© 2026 L7 iHOME · +380 93 938 2777</span>
+    </div>
+  </footer>
+
+<script>
+(function () {
+  // Mobile nav toggle
+  var header = document.getElementById("siteHeader");
+  var toggle = document.getElementById("navToggle");
+  if (toggle && header) {
+    toggle.addEventListener("click", function () { header.classList.toggle("open"); });
+  }
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+
+  var slug = new URLSearchParams(location.search).get("id") || "";
+
+  fetch("content.json?v=" + Date.now())
+    .then(function (r) { return r.json(); })
+    .then(function (c) {
+      var items = c.models.items || [];
+      var m = items.filter(function (x) { return x.slug === slug; })[0] || items[0];
+      if (!m) return;
+
+      document.title = "L7 iHOME — " + m.name;
+      document.getElementById("crumbName").textContent = m.name;
+      document.getElementById("pName").textContent = m.name;
+      document.getElementById("pCode").textContent = m.code;
+      document.getElementById("pImg").src = m.img;
+      document.getElementById("pImg").alt = m.name;
+      document.getElementById("pDesc").textContent = m.desc || "";
+
+      var tag = document.getElementById("pTag");
+      if (m.tag) { tag.textContent = m.tag; tag.hidden = false; }
+      var c1 = document.getElementById("pCallout1");
+      if (m.callout1) { c1.textContent = m.callout1; c1.hidden = false; }
+      var c2 = document.getElementById("pCallout2");
+      if (m.callout2) { c2.textContent = m.callout2; c2.hidden = false; }
+
+      document.getElementById("pStat1Label").textContent = m.stat1Label || "Корисна площа";
+      document.getElementById("pStat1Value").innerHTML = esc(m.stat1Value || "") + (m.stat1Unit ? " <small>" + esc(m.stat1Unit) + "</small>" : "");
+      document.getElementById("pStat2Label").textContent = m.stat2Label || "Гостей";
+      document.getElementById("pStat2Value").textContent = m.stat2Value || "";
+
+      document.getElementById("pRows").innerHTML = (m.rows || []).map(function (r) {
+        return '<div class="spec-row"><span class="k">' + esc(r.k) + '</span>' +
+          '<span class="v">' + esc(r.v) + (r.unit ? "<small>" + esc(r.unit) + "</small>" : "") + "</span></div>";
+      }).join("");
+
+      // gallery: main image + extra photos
+      var photos = [m.img].concat(m.gallery || []);
+      if (photos.length > 1) {
+        var g = document.getElementById("pGallery");
+        g.hidden = false;
+        g.innerHTML = photos.map(function (p, i) {
+          return '<button type="button" data-p="' + escAttr(p) + '"' + (i === 0 ? ' class="active"' : "") + '>' +
+            '<img src="' + escAttr(p) + '" alt="" loading="lazy"></button>';
+        }).join("");
+        g.addEventListener("click", function (e) {
+          var btn = e.target.closest("button[data-p]");
+          if (!btn) return;
+          document.getElementById("pImg").src = btn.getAttribute("data-p");
+          g.querySelectorAll("button").forEach(function (b) { b.classList.remove("active"); });
+          btn.classList.add("active");
+        });
+      }
+
+      // phone
+      var phone = (c.contact && c.contact.phone) || "";
+      if (phone) {
+        document.getElementById("pTel").href = "tel:" + phone.replace(/[^+\d]/g, "");
+        var nav = document.querySelector('[data-cms="nav.phone"]');
+        if (nav) nav.textContent = phone;
+        var foot = document.querySelector('[data-cms="footer.phone"]');
+        if (foot) foot.textContent = "© " + new Date().getFullYear() + " L7 iHOME · " + phone;
+      }
+
+      // other models
+      var others = items.filter(function (x) { return x !== m; });
+      document.getElementById("otherModels").innerHTML = others.map(function (o) {
+        return '<a class="model-card" href="model.html?id=' + encodeURIComponent(o.slug) + '" style="display:block">' +
+          '<div class="model-figure"><div class="badges">' +
+          '<span class="badge badge--ink">' + esc(o.code) + '</span>' +
+          (o.tag ? '<span class="badge badge--brand">' + esc(o.tag) + '</span>' : "") +
+          '</div><img src="' + escAttr(o.img) + '" alt="' + escAttr(o.name) + '"></div>' +
+          '<div class="model-body"><div class="name">' + esc(o.name) + '</div>' +
+          '<div class="meta">' + esc(o.meta) + "</div></div></a>";
+      }).join("");
+    });
+
+  function escAttr(s) { return esc(s).replace(/'/g, "&#39;"); }
+})();
+</script>
+</body>
+</html>

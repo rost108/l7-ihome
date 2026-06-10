@@ -247,19 +247,58 @@
 
   // ---- render dynamic lists ----
   function modelItem(m, i) {
+    var rows = (m.rows || []).map(function (r, ri) {
+      return '<div class="item" style="padding:12px 14px 2px">' +
+        '<button class="rm" title="Видалити" data-rm-mrow="' + i + ':' + ri + '">×</button>' +
+        '<div class="row3">' +
+        '<label class="field"><span>Параметр</span><input type="text" data-mrk="k" data-mmi="' + i + '" data-mri="' + ri + '" value="' + escAttr(r.k) + '"></label>' +
+        '<label class="field"><span>Значення</span><input type="text" data-mrk="v" data-mmi="' + i + '" data-mri="' + ri + '" value="' + escAttr(r.v) + '"></label>' +
+        '<label class="field"><span>Одиниця</span><input type="text" data-mrk="unit" data-mmi="' + i + '" data-mri="' + ri + '" value="' + escAttr(r.unit) + '"></label>' +
+        '</div></div>';
+    }).join("");
+    var gallery = (m.gallery || []).map(function (g, gi) {
+      return '<div style="position:relative; display:inline-block; margin: 0 10px 10px 0;">' +
+        '<img src="../' + escAttr(g) + '" alt="" style="width:96px;height:64px;object-fit:cover;border-radius:8px;border:1px solid var(--border-hairline)">' +
+        '<button class="rm" style="top:-8px;right:-8px;background:var(--white);border-radius:50%;box-shadow:var(--shadow-sm)" title="Видалити" data-rm-gal="' + i + ':' + gi + '">×</button>' +
+        '</div>';
+    }).join("");
     return '<div class="item" data-i="' + i + '">' +
-      '<button class="rm" title="Видалити" data-rm-model="' + i + '">×</button>' +
+      '<button class="rm" title="Видалити модель" data-rm-model="' + i + '">×</button>' +
       '<div class="row3">' +
       '<label class="field"><span>Код</span><input type="text" data-mk="code" data-mi="' + i + '" value="' + escAttr(m.code) + '"></label>' +
       '<label class="field"><span>Тег (порожньо = без тега)</span><input type="text" data-mk="tag" data-mi="' + i + '" value="' + escAttr(m.tag) + '"></label>' +
       '<label class="field"><span>Назва</span><input type="text" data-mk="name" data-mi="' + i + '" value="' + escAttr(m.name) + '"></label>' +
       '</div>' +
-      '<label class="field"><span>Опис (площа · гості)</span><input type="text" data-mk="meta" data-mi="' + i + '" value="' + escAttr(m.meta) + '"></label>' +
+      '<div class="row2">' +
+      '<label class="field"><span>Підпис на картці (площа · гості)</span><input type="text" data-mk="meta" data-mi="' + i + '" value="' + escAttr(m.meta) + '"></label>' +
+      '<label class="field"><span>Адреса сторінки (латиницею, напр. t8)</span><input type="text" data-mk="slug" data-mi="' + i + '" value="' + escAttr(m.slug) + '"></label>' +
+      '</div>' +
+      '<label class="field"><span>Опис на сторінці товару</span><textarea data-mk="desc" data-mi="' + i + '">' + esc(m.desc) + '</textarea></label>' +
+      '<div class="row3">' +
+      '<label class="field"><span>Плитка 1 — підпис</span><input type="text" data-mk="stat1Label" data-mi="' + i + '" value="' + escAttr(m.stat1Label) + '"></label>' +
+      '<label class="field"><span>Плитка 1 — значення</span><input type="text" data-mk="stat1Value" data-mi="' + i + '" value="' + escAttr(m.stat1Value) + '"></label>' +
+      '<label class="field"><span>Плитка 1 — одиниця</span><input type="text" data-mk="stat1Unit" data-mi="' + i + '" value="' + escAttr(m.stat1Unit) + '"></label>' +
+      '</div>' +
+      '<div class="row2">' +
+      '<label class="field"><span>Плитка 2 — підпис</span><input type="text" data-mk="stat2Label" data-mi="' + i + '" value="' + escAttr(m.stat2Label) + '"></label>' +
+      '<label class="field"><span>Плитка 2 — значення</span><input type="text" data-mk="stat2Value" data-mi="' + i + '" value="' + escAttr(m.stat2Value) + '"></label>' +
+      '</div>' +
+      '<div class="row2">' +
+      '<label class="field"><span>Виноска на фото 1</span><input type="text" data-mk="callout1" data-mi="' + i + '" value="' + escAttr(m.callout1) + '"></label>' +
+      '<label class="field"><span>Виноска на фото 2</span><input type="text" data-mk="callout2" data-mi="' + i + '" value="' + escAttr(m.callout2) + '"></label>' +
+      '</div>' +
       '<div class="img-field">' +
       '<img src="../' + escAttr(m.img) + '" alt="">' +
       '<div class="meta"><div class="path">' + esc(m.img) + '</div>' +
       '<input type="file" accept="image/*" data-model-img="' + i + '"></div>' +
-      '</div></div>';
+      '</div>' +
+      '<div class="field"><span style="display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px">Характеристики на сторінці товару</span>' +
+      rows +
+      '<button class="mini-btn" data-add-mrow="' + i + '" style="margin-bottom:10px">+ Додати рядок</button></div>' +
+      '<div class="field"><span style="display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px">Галерея (додаткові фото)</span>' +
+      '<div>' + gallery + '</div>' +
+      '<input type="file" accept="image/*" data-gal-img="' + i + '"></div>' +
+      '</div>';
   }
   function specRowItem(r, i) {
     return '<div class="item" data-i="' + i + '">' +
@@ -314,6 +353,10 @@
     });
     $$("[data-mk]").forEach(function (el) {
       content.models.items[+el.getAttribute("data-mi")][el.getAttribute("data-mk")] = el.value;
+    });
+    $$("[data-mrk]").forEach(function (el) {
+      var m = content.models.items[+el.getAttribute("data-mmi")];
+      (m.rows = m.rows || [])[+el.getAttribute("data-mri")][el.getAttribute("data-mrk")] = el.value;
     });
     $$("[data-rk]").forEach(function (el) {
       content.spec.rows[+el.getAttribute("data-ri")][el.getAttribute("data-rk")] = el.value;
@@ -388,6 +431,20 @@
     if (t.hasAttribute("data-rm-model")) { collect(); content.models.items.splice(+t.getAttribute("data-rm-model"), 1); renderLists(); }
     if (t.hasAttribute("data-rm-row")) { collect(); content.spec.rows.splice(+t.getAttribute("data-rm-row"), 1); renderLists(); }
     if (t.hasAttribute("data-rm-adv")) { collect(); content.business.items.splice(+t.getAttribute("data-rm-adv"), 1); renderLists(); }
+    if (t.hasAttribute("data-rm-mrow")) {
+      var pr = t.getAttribute("data-rm-mrow").split(":");
+      collect(); content.models.items[+pr[0]].rows.splice(+pr[1], 1); renderLists();
+    }
+    if (t.hasAttribute("data-rm-gal")) {
+      var pg = t.getAttribute("data-rm-gal").split(":");
+      collect(); content.models.items[+pg[0]].gallery.splice(+pg[1], 1); renderLists();
+    }
+    if (t.hasAttribute("data-add-mrow")) {
+      collect();
+      var mm = content.models.items[+t.getAttribute("data-add-mrow")];
+      (mm.rows = mm.rows || []).push({ k: "", v: "", unit: "" });
+      renderLists();
+    }
   });
   document.addEventListener("change", function (e) {
     var t = e.target;
@@ -406,11 +463,20 @@
         renderLists();
       });
     }
+    if (t.hasAttribute("data-gal-img") && t.files[0]) {
+      var gi = +t.getAttribute("data-gal-img");
+      collect();
+      uploadImage(t.files[0], function (path) {
+        var mg = content.models.items[gi];
+        (mg.gallery = mg.gallery || []).push(path);
+        renderLists();
+      });
+    }
   });
 
   $("#addModel").addEventListener("click", function () {
     collect();
-    content.models.items.push({ code: "L7-", tag: "", name: "Капсула ", meta: "", img: "assets/capsule-t8.jpg" });
+    content.models.items.push({ code: "L7-", slug: "", tag: "", name: "Капсула ", meta: "", img: "assets/capsule-t8.jpg", desc: "", stat1Label: "Корисна площа", stat1Value: "", stat1Unit: "М²", stat2Label: "Гостей", stat2Value: "", callout1: "", callout2: "", rows: [], gallery: [] });
     renderLists();
   });
   $("#addSpecRow").addEventListener("click", function () {

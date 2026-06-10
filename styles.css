@@ -322,6 +322,7 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); color: var(--text-stro
 .section-pad { padding: var(--space-24) 0; }
 
 .lineup-grid { margin-top: var(--space-12); display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-8); }
+a.model-card { display: block; color: inherit; }
 .model-card {
   border: var(--bw-hair) solid var(--border-hairline);
   border-radius: var(--radius-2xl); overflow: hidden;

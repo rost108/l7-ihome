@@ -59,13 +59,13 @@
     var grid = document.getElementById("modelsGrid");
     if (grid && c.models.items) {
       grid.innerHTML = c.models.items.map(function (m) {
-        return '<article class="model-card">' +
+        return '<a class="model-card" href="model.html?id=' + encodeURIComponent(m.slug || "") + '">' +
           '<div class="model-figure"><div class="badges">' +
           '<span class="badge badge--ink">' + esc(m.code) + '</span>' +
           (m.tag ? '<span class="badge badge--brand">' + esc(m.tag) + '</span>' : '') +
           '</div><img src="' + esc(m.img) + '" alt="' + esc(m.name) + '"></div>' +
           '<div class="model-body"><div class="name">' + esc(m.name) + '</div>' +
-          '<div class="meta">' + esc(m.meta) + '</div></div></article>';
+          '<div class="meta">' + esc(m.meta) + '</div></div></a>';
       }).join("");
     }
 
