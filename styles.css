@@ -1,0 +1,463 @@
+/* ============================================================
+   L7 iHOME — marketing site stylesheet
+   Implementation of the "L7 iHOME Design System" deck:
+   studio monochrome palette + azure brand accent, Manrope
+   display/UI, JetBrains Mono for specs & model codes,
+   capsule radii, soft studio-float shadows.
+   ============================================================ */
+
+/* ============================================================
+   FONTS (self-hosted, extracted from the design bundle)
+   Manrope & JetBrains Mono are variable — one file per subset.
+   ============================================================ */
+@font-face { font-family: 'Manrope'; font-style: normal; font-weight: 200 800; font-display: swap; src: url("assets/fonts/manrope-cyrillic-ext.woff2") format('woff2'); unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+@font-face { font-family: 'Manrope'; font-style: normal; font-weight: 200 800; font-display: swap; src: url("assets/fonts/manrope-cyrillic.woff2") format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: 'Manrope'; font-style: normal; font-weight: 200 800; font-display: swap; src: url("assets/fonts/manrope-greek.woff2") format('woff2'); unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF; }
+@font-face { font-family: 'Manrope'; font-style: normal; font-weight: 200 800; font-display: swap; src: url("assets/fonts/manrope-latin-ext.woff2") format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Manrope'; font-style: normal; font-weight: 200 800; font-display: swap; src: url("assets/fonts/manrope-latin.woff2") format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 100 800; font-display: swap; src: url("assets/fonts/jbmono-cyrillic-ext.woff2") format('woff2'); unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 100 800; font-display: swap; src: url("assets/fonts/jbmono-cyrillic.woff2") format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 100 800; font-display: swap; src: url("assets/fonts/jbmono-latin-ext.woff2") format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 100 800; font-display: swap; src: url("assets/fonts/jbmono-latin.woff2") format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+/* ============================================================
+   TOKENS — verbatim from the design system
+   ============================================================ */
+:root {
+  /* Brand azure (the logo blue) */
+  --azure-50:  #EAF3FE;
+  --azure-100: #D2E6FD;
+  --azure-200: #A9CFFB;
+  --azure-300: #7FB6F8;
+  --azure-400: #5BAAFF;
+  --azure-500: #4AA0F5;
+  --azure-600: #3D92F1;
+  --azure-700: #2E7CD8;
+  --azure-800: #2463AE;
+  --azure-900: #1C2A44;
+
+  /* Neutral / studio greys (cool) */
+  --white:     #FFFFFF;
+  --grey-25:   #FAFBFC;
+  --grey-50:   #F4F6F8;
+  --grey-100:  #ECEFF2;
+  --grey-150:  #E2E6EB;
+  --grey-200:  #D4D9DF;
+  --grey-300:  #B9C0C8;
+  --grey-400:  #9AA1AA;
+  --grey-500:  #767D86;
+  --grey-600:  #565C64;
+  --grey-700:  #3A3E45;
+  --grey-800:  #26292F;
+  --grey-900:  #16181D;
+  --grey-950:  #0E0F12;
+
+  /* Smoked glass */
+  --glass-tint:   rgba(22, 24, 29, 0.62);
+  --glass-edge:   rgba(255, 255, 255, 0.22);
+
+  /* Semantic aliases */
+  --bg-studio:        linear-gradient(180deg, var(--grey-100) 0%, var(--grey-50) 52%, var(--white) 100%);
+  --bg-page:          var(--white);
+  --surface-card:     var(--white);
+  --surface-sunken:   var(--grey-50);
+  --surface-raised:   var(--grey-25);
+  --surface-inverse:  var(--grey-900);
+  --surface-glass:    var(--glass-tint);
+
+  --text-strong:      var(--grey-900);
+  --text-body:        var(--grey-700);
+  --text-muted:       var(--grey-500);
+  --text-faint:       var(--grey-400);
+  --text-inverse:     var(--white);
+  --text-brand:       var(--azure-600);
+
+  --border-hairline:  var(--grey-150);
+  --border-default:   var(--grey-200);
+  --border-strong:    var(--grey-300);
+  --border-ink:       var(--grey-900);
+
+  --brand:            var(--azure-500);
+  --brand-strong:     var(--azure-600);
+  --brand-press:      var(--azure-700);
+  --brand-tint:       var(--azure-50);
+  --on-brand:         var(--white);
+
+  --focus-ring:       rgba(74, 160, 245, 0.45);
+
+  --success: #2E9E6B;
+  --warning: #C98A1E;
+  --danger:  #D2544A;
+
+  /* Type */
+  --font-sans:    'Manrope', -apple-system, 'Segoe UI', system-ui, sans-serif;
+  --font-display: 'Manrope', -apple-system, 'Segoe UI', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  --fw-regular:   400;
+  --fw-medium:    500;
+  --fw-semibold:  600;
+  --fw-bold:      700;
+  --fw-extrabold: 800;
+
+  --fs-display:   72px;
+  --fs-h1:        52px;
+  --fs-h2:        40px;
+  --fs-h3:        30px;
+  --fs-h4:        24px;
+  --fs-h5:        20px;
+  --fs-body-lg:   18px;
+  --fs-body:      16px;
+  --fs-body-sm:   14px;
+  --fs-caption:   13px;
+  --fs-label:     12px;
+
+  --lh-tight:     1.04;
+  --lh-snug:      1.18;
+  --lh-normal:    1.5;
+  --lh-relaxed:   1.65;
+
+  --ls-tight:     -0.02em;
+  --ls-snug:      -0.01em;
+  --ls-wide:      0.08em;
+  --ls-wider:     0.16em;
+
+  /* Spacing (8px grid) */
+  --space-1:   4px;  --space-2:  8px;  --space-3:  12px; --space-4:  16px;
+  --space-5:   20px; --space-6:  24px; --space-8:  32px; --space-10: 40px;
+  --space-12:  48px; --space-16: 64px; --space-20: 80px; --space-24: 96px;
+  --space-32:  128px;
+
+  /* Radius (capsule geometry) */
+  --radius-xs:   4px;
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   18px;
+  --radius-xl:   24px;
+  --radius-2xl:  32px;
+  --radius-3xl:  44px;
+  --radius-pill: 999px;
+
+  /* Shadows (soft studio float) */
+  --shadow-xs:  0 1px 2px rgba(22, 24, 29, 0.05);
+  --shadow-sm:  0 2px 8px rgba(22, 24, 29, 0.06);
+  --shadow-md:  0 8px 24px rgba(22, 24, 29, 0.08);
+  --shadow-lg:  0 18px 48px rgba(22, 24, 29, 0.10);
+  --shadow-xl:  0 32px 80px rgba(22, 24, 29, 0.14);
+  --shadow-float: 0 40px 60px -28px rgba(22, 24, 29, 0.30);
+  --shadow-ring:  inset 0 0 0 1px var(--border-hairline);
+  --shadow-brand: 0 10px 30px -8px rgba(74, 160, 245, 0.45);
+
+  --bw-hair: 1px;
+  --bw-1:    1.5px;
+  --bw-2:    2px;
+
+  /* Motion */
+  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast:    140ms;
+  --dur-base:    220ms;
+  --dur-slow:    420ms;
+
+  /* Layout */
+  --container:      1200px;
+  --container-wide: 1440px;
+  --gutter:         24px;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+  color: var(--text-body);
+  background: var(--bg-page);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+h1, h2, h3 { margin: 0; font-family: var(--font-display); color: var(--text-strong); }
+
+.container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+
+:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--focus-ring); border-radius: var(--radius-sm); }
+
+/* ---- Type helpers ---- */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-label);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.on-ink .eyebrow, .eyebrow--inverse { color: rgba(255,255,255,0.62); }
+
+.section-title {
+  font-weight: var(--fw-extrabold);
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+  margin-top: var(--space-4);
+}
+
+.lead { font-size: var(--fs-body-lg); line-height: var(--lh-relaxed); color: var(--text-muted); }
+
+/* ---- Wordmark ---- */
+.wordmark { display: inline-flex; align-items: center; gap: 10px; line-height: 1; user-select: none; }
+.wordmark img { width: 38px; height: 38px; }
+.wordmark .word { font-weight: var(--fw-extrabold); font-size: 21px; letter-spacing: -0.01em; color: var(--azure-900); }
+.wordmark.is-inverse .word { color: var(--white); }
+
+/* ---- Buttons (pill) ---- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  height: 52px; padding: 0 28px;
+  border: none; border-radius: var(--radius-pill); cursor: pointer;
+  font-family: var(--font-sans); font-weight: var(--fw-semibold); font-size: var(--fs-body);
+  transition: background var(--dur-base) var(--ease-out), transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+}
+.btn--primary { background: var(--brand); color: var(--on-brand); box-shadow: var(--shadow-brand); }
+.btn--primary:hover { background: var(--brand-strong); }
+.btn--primary:active { background: var(--brand-press); transform: translateY(1px); }
+.btn--ghost { border: var(--bw-1) solid var(--border-default); color: var(--text-strong); background: transparent; }
+.btn--ghost:hover { border-color: var(--border-strong); background: var(--surface-sunken); }
+.btn--ghost-light { border: var(--bw-1) solid rgba(255,255,255,0.4); color: var(--white); background: transparent; }
+.btn--ghost-light:hover { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.06); }
+.btn--sm { height: 42px; padding: 0 22px; font-size: var(--fs-body-sm); }
+
+/* ---- Badges (pill) ---- */
+.badge {
+  display: inline-flex; align-items: center; height: 28px; padding: 0 12px;
+  font-family: var(--font-mono); font-size: var(--fs-caption);
+  letter-spacing: 0.04em; text-transform: uppercase;
+  border-radius: var(--radius-pill); white-space: nowrap;
+}
+.badge--ink { background: var(--grey-900); color: var(--white); }
+.badge--brand { background: var(--azure-50); color: var(--azure-700); }
+.badge--outline { border: var(--bw-hair) solid var(--border-default); color: var(--text-strong); }
+
+/* ---- Callout pill (azure annotation) ---- */
+.callout {
+  display: inline-flex; align-items: center; height: 34px; padding: 0 16px;
+  font-family: var(--font-mono); font-size: var(--fs-caption); letter-spacing: 0.03em;
+  color: var(--white); background: var(--azure-500);
+  border-radius: var(--radius-pill); box-shadow: var(--shadow-brand); white-space: nowrap;
+}
+
+/* ---- Spec rows ---- */
+.spec-row {
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-5);
+  padding: 13px 0; border-bottom: var(--bw-hair) solid var(--border-hairline);
+}
+.spec-row:last-child { border-bottom: none; }
+.spec-row .k { font-family: var(--font-mono); font-size: var(--fs-body-sm); letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); }
+.spec-row .v { font-family: var(--font-mono); font-size: var(--fs-body); font-weight: var(--fw-medium); color: var(--text-strong); font-variant-numeric: tabular-nums; text-align: right; }
+.spec-row .v small { color: var(--text-muted); margin-left: 3px; font-size: 0.85em; }
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: var(--bw-hair) solid var(--border-hairline);
+}
+.site-header .container { display: flex; align-items: center; gap: var(--space-8); height: 72px; }
+.mainnav { display: flex; gap: var(--space-6); margin-left: auto; }
+.mainnav a {
+  font-weight: var(--fw-medium); font-size: var(--fs-body-sm); color: var(--text-muted);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.mainnav a:hover { color: var(--text-strong); }
+.nav-phone { font-family: var(--font-mono); font-size: var(--fs-body-sm); letter-spacing: 0.04em; color: var(--text-strong); }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; color: var(--text-strong); padding: 8px; }
+.nav-toggle svg { display: block; }
+
+/* ============================================================
+   HERO  (deck slide 01 — Title, studio backdrop)
+   ============================================================ */
+.hero { background: var(--bg-studio); overflow: hidden; }
+.hero .container {
+  display: grid; grid-template-columns: 1.05fr 1fr; gap: var(--space-12);
+  align-items: center; padding-top: var(--space-20); padding-bottom: var(--space-20);
+}
+.hero h1 {
+  font-weight: var(--fw-extrabold);
+  font-size: clamp(44px, 6vw, var(--fs-display));
+  line-height: var(--lh-tight); letter-spacing: var(--ls-tight);
+  margin-top: var(--space-6);
+}
+.hero h1 .accent { color: var(--azure-500); }
+.hero .lead { margin: var(--space-6) 0 0; max-width: 520px; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-top: var(--space-10); }
+.hero-contacts {
+  display: flex; gap: var(--space-5); align-items: center; margin-top: var(--space-12);
+  font-family: var(--font-mono); font-size: var(--fs-body); letter-spacing: 0.04em; color: var(--text-body);
+}
+.hero-contacts .dot { color: var(--border-strong); }
+
+.hero-visual { position: relative; padding: var(--space-6) 0; }
+.hero-visual img { width: 100%; object-fit: contain; filter: drop-shadow(var(--shadow-float)); }
+.hero-visual .badges { position: absolute; top: 0; left: 0; display: flex; gap: var(--space-2); }
+.hero-visual .callout--glass { position: absolute; left: 4%; bottom: 6%; }
+.hero-visual .callout--alloy { position: absolute; right: 0; top: 18%; }
+
+/* ============================================================
+   LINEUP  (deck slide 02 — Модельний ряд)
+   ============================================================ */
+.section-pad { padding: var(--space-24) 0; }
+
+.lineup-grid { margin-top: var(--space-12); display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-8); }
+.model-card {
+  border: var(--bw-hair) solid var(--border-hairline);
+  border-radius: var(--radius-2xl); overflow: hidden;
+  background: var(--surface-card); box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
+}
+.model-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+.model-figure {
+  position: relative; background: var(--bg-studio); height: 260px;
+  display: flex; align-items: center; justify-content: center; padding: var(--space-5);
+}
+.model-figure .badges { position: absolute; top: 16px; left: 16px; display: flex; gap: var(--space-2); }
+.model-figure img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(var(--shadow-float)); }
+.model-body { padding: var(--space-5) var(--space-6) var(--space-6); }
+.model-body .name { font-weight: var(--fw-bold); font-size: 22px; color: var(--text-strong); }
+.model-body .meta { margin-top: 6px; font-family: var(--font-mono); font-size: 15px; color: var(--text-muted); }
+
+/* ============================================================
+   SPEC  (deck slide 03 — Характеристики T8)
+   ============================================================ */
+.spec-section { background: var(--surface-card); }
+.spec-section .container { display: grid; grid-template-columns: 1.15fr 1fr; gap: var(--space-16); align-items: stretch; }
+.spec-visual {
+  position: relative; background: var(--bg-studio);
+  border: var(--bw-hair) solid var(--border-hairline); border-radius: var(--radius-2xl);
+  display: flex; align-items: center; justify-content: center; padding: var(--space-10);
+  min-height: 460px;
+}
+.spec-visual .badges { position: absolute; top: 22px; left: 22px; display: flex; gap: var(--space-2); }
+.spec-visual img { width: 100%; object-fit: contain; filter: drop-shadow(var(--shadow-float)); }
+.spec-visual .callout--glass { position: absolute; left: 30px; bottom: 28px; }
+.spec-visual .callout--alloy { position: absolute; right: 30px; top: 96px; }
+.spec-facts h2 { font-weight: var(--fw-extrabold); font-size: 46px; letter-spacing: var(--ls-tight); line-height: var(--lh-tight); margin-top: var(--space-3); }
+.stat-tiles { display: flex; gap: var(--space-4); margin: var(--space-5) 0 var(--space-2); }
+.stat-tile {
+  flex: 1; background: var(--surface-sunken);
+  border: var(--bw-hair) solid var(--border-hairline); border-radius: var(--radius-xl);
+  padding: var(--space-4) 18px;
+}
+.stat-tile .eyebrow { display: block; margin-bottom: 6px; }
+.stat-tile .val { font-weight: var(--fw-extrabold); font-size: var(--fs-h3); letter-spacing: var(--ls-tight); color: var(--text-strong); }
+.stat-tile .val small { font-size: 18px; color: var(--text-muted); font-weight: var(--fw-bold); }
+
+/* ============================================================
+   STATEMENT  (deck slide 04 — full-bleed photo, ink overlay)
+   ============================================================ */
+.statement { position: relative; min-height: 620px; display: flex; color: var(--white); overflow: hidden; }
+.statement > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.statement::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(14,15,18,0.30) 0%, rgba(14,15,18,0.20) 40%, rgba(14,15,18,0.82) 100%);
+}
+.statement .container {
+  position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: flex-end;
+  padding-top: var(--space-24); padding-bottom: var(--space-20); width: 100%;
+}
+.statement h2 {
+  font-weight: var(--fw-extrabold); font-size: clamp(34px, 4.5vw, 58px);
+  line-height: 1.1; letter-spacing: var(--ls-tight); color: var(--white);
+  margin-top: var(--space-5); max-width: 920px;
+}
+
+/* ============================================================
+   BUSINESS  (deck slide 05 — Бізнес-вигода, sunken bg)
+   ============================================================ */
+.business { background: var(--surface-sunken); }
+.adv-grid { margin-top: var(--space-10); display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+.adv {
+  background: var(--white); border: var(--bw-hair) solid var(--border-hairline);
+  border-radius: var(--radius-2xl); box-shadow: var(--shadow-sm);
+  padding: 28px 30px; display: flex; gap: var(--space-5); align-items: flex-start;
+}
+.adv .ic {
+  width: 54px; height: 54px; flex: none; border-radius: var(--radius-lg);
+  background: var(--brand-tint); color: var(--brand-strong);
+  display: flex; align-items: center; justify-content: center;
+}
+.adv h3 { margin: 4px 0 8px; font-weight: var(--fw-bold); font-size: 21px; }
+.adv p { margin: 0; font-size: 15.5px; line-height: 1.55; color: var(--text-muted); }
+
+/* ============================================================
+   CONTACT  (deck slide 06 — ink CTA)
+   ============================================================ */
+.contact { background: var(--grey-950); color: var(--white); }
+.contact .container { padding-top: var(--space-24); padding-bottom: var(--space-24); }
+.contact h2 {
+  font-weight: var(--fw-extrabold); font-size: clamp(36px, 4.5vw, 58px);
+  line-height: 1.08; letter-spacing: var(--ls-tight); color: var(--white);
+  margin-top: var(--space-6); max-width: 1000px;
+}
+.contact h2 .accent { color: var(--azure-400); }
+.contact-cta { display: flex; flex-wrap: wrap; gap: 18px; margin-top: var(--space-12); }
+.contact-details { display: flex; flex-wrap: wrap; gap: 56px; align-items: baseline; margin-top: var(--space-20); font-family: var(--font-mono); letter-spacing: 0.04em; }
+.contact-details .big { font-size: 26px; color: var(--white); margin-top: var(--space-2); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-footer { background: var(--grey-950); color: var(--text-faint); border-top: var(--bw-hair) solid rgba(255,255,255,0.08); }
+.site-footer .container {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-4);
+  padding-top: var(--space-8); padding-bottom: var(--space-8);
+  font-family: var(--font-mono); font-size: var(--fs-caption); letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+  .hero .container { grid-template-columns: 1fr; }
+  .hero-visual { order: -1; max-width: 560px; }
+  .lineup-grid { grid-template-columns: 1fr 1fr; }
+  .spec-section .container { grid-template-columns: 1fr; }
+  .spec-visual { min-height: 380px; }
+}
+
+@media (max-width: 720px) {
+  .section-title { font-size: 36px; }
+  .section-pad { padding: var(--space-16) 0; }
+  .lineup-grid, .adv-grid { grid-template-columns: 1fr; }
+  .stat-tiles { flex-direction: column; }
+  .contact-details { gap: var(--space-8); }
+  .hero-contacts { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+  .hero-contacts .dot { display: none; }
+
+  .mainnav, .nav-phone { display: none; }
+  .nav-toggle { display: block; margin-left: auto; }
+  .site-header.open .mainnav {
+    display: flex; flex-direction: column; gap: var(--space-4);
+    position: absolute; top: 72px; left: 0; right: 0;
+    background: var(--white); border-bottom: var(--bw-hair) solid var(--border-hairline);
+    padding: var(--space-5) var(--gutter);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; }
+}
