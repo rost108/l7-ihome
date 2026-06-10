@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>L7 iHOME — Адмінка</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="../assets/logo-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body { background: var(--surface-sunken); padding-bottom: 120px; }
+    .admin-wrap { max-width: 860px; margin: 0 auto; padding: 0 var(--gutter); }
+    .admin-header { display: flex; align-items: center; gap: 14px; padding: 28px 0 18px; }
+    .admin-header h1 { font-size: 28px; font-weight: var(--fw-extrabold); letter-spacing: var(--ls-tight); }
+    .panel {
+      background: var(--white); border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-xl); box-shadow: var(--shadow-sm);
+      padding: 24px 28px; margin-bottom: 20px;
+    }
+    .panel h2 { font-size: 20px; font-weight: var(--fw-bold); margin-bottom: 16px; }
+    .field { display: block; margin-bottom: 14px; }
+    .field span { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+    .field input[type=text], .field input[type=password], .field textarea, .field select {
+      width: 100%; font: inherit; color: var(--text-strong);
+      padding: 10px 14px; border: 1px solid var(--border-default); border-radius: var(--radius-md);
+      background: var(--white);
+    }
+    .field textarea { min-height: 72px; resize: vertical; }
+    .field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--azure-400); box-shadow: 0 0 0 3px var(--focus-ring); }
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+    .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 16px; }
+    .item {
+      border: 1px solid var(--border-hairline); border-radius: var(--radius-lg);
+      padding: 16px 18px 8px; margin-bottom: 14px; background: var(--surface-raised);
+      position: relative;
+    }
+    .item .rm {
+      position: absolute; top: 10px; right: 10px;
+      border: none; background: none; cursor: pointer; color: var(--text-faint);
+      font-size: 18px; line-height: 1; padding: 6px;
+    }
+    .item .rm:hover { color: var(--danger); }
+    .mini-btn {
+      display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 16px;
+      border: 1px dashed var(--border-strong); border-radius: var(--radius-pill);
+      background: none; cursor: pointer; font: inherit; font-size: 14px; color: var(--text-muted);
+    }
+    .mini-btn:hover { color: var(--text-strong); border-color: var(--text-strong); }
+    .img-field { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+    .img-field img { width: 96px; height: 64px; object-fit: cover; border-radius: var(--radius-md); border: 1px solid var(--border-hairline); background: var(--grey-100); }
+    .img-field .meta { flex: 1; }
+    .img-field .meta .path { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); word-break: break-all; }
+    .savebar {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border-hairline);
+    }
+    .savebar .inner { max-width: 860px; margin: 0 auto; padding: 14px var(--gutter); display: flex; align-items: center; gap: 16px; }
+    #status { font-family: var(--font-mono); font-size: 13px; color: var(--text-muted); }
+    #status.ok { color: var(--success); }
+    #status.err { color: var(--danger); }
+    .hint { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+    .hint a { color: var(--azure-700); text-decoration: underline; }
+    #app { display: none; }
+  </style>
+</head>
+<body>
+  <div class="admin-wrap">
+    <div class="admin-header">
+      <img src="../assets/logo-mark.svg" alt="" width="40" height="40">
+      <h1>Адмінка сайту L7 iHOME</h1>
+    </div>
+
+    <!-- ===== AUTH ===== -->
+    <div class="panel" id="authPanel">
+      <h2>Вхід</h2>
+      <label class="field"><span>GitHub token</span>
+        <input type="password" id="token" placeholder="github_pat_…" autocomplete="off">
+      </label>
+      <p class="hint">
+        Потрібен GitHub-токен з правом запису в репозиторій <b>rost108/l7-ihome</b>.
+        Створити: <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a>
+        → Repository access: <b>Only select repositories → l7-ihome</b> → Permissions → <b>Contents: Read and write</b>.
+        Токен зберігається лише у вашому браузері.
+      </p>
+      <button class="btn btn--primary btn--sm" id="loginBtn" style="margin-top:8px">Увійти</button>
+    </div>
+
+    <!-- ===== EDITOR ===== -->
+    <div id="app">
+      <div class="panel">
+        <h2>Головний екран</h2>
+        <label class="field"><span>Бейдж</span><input type="text" data-k="hero.badge"></label>
+        <div class="row2">
+          <label class="field"><span>Заголовок, рядок 1</span><input type="text" data-k="hero.title1"></label>
+          <label class="field"><span>Заголовок, рядок 2 (блакитний)</span><input type="text" data-k="hero.title2"></label>
+        </div>
+        <label class="field"><span>Підзаголовок</span><textarea data-k="hero.lead"></textarea></label>
+        <div class="row2">
+          <label class="field"><span>Телефон</span><input type="text" data-k="hero.phone"></label>
+          <label class="field"><span>Сайт</span><input type="text" data-k="hero.site"></label>
+        </div>
+        <div class="row2">
+          <label class="field"><span>Код моделі на фото</span><input type="text" data-k="hero.imgCode"></label>
+          <label class="field"><span>Тег на фото</span><input type="text" data-k="hero.imgTag"></label>
+        </div>
+        <div class="row2">
+          <label class="field"><span>Виноска 1</span><input type="text" data-k="hero.callout1"></label>
+          <label class="field"><span>Виноска 2</span><input type="text" data-k="hero.callout2"></label>
+        </div>
+        <div class="img-field">
+          <img data-img-preview="hero.img" alt="">
+          <div class="meta">
+            <div class="path" data-img-path="hero.img"></div>
+            <input type="file" accept="image/*" data-img-upload="hero.img">
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Модельний ряд</h2>
+        <div class="row2">
+          <label class="field"><span>Надзаголовок</span><input type="text" data-k="models.eyebrow"></label>
+          <label class="field"><span>Заголовок</span><input type="text" data-k="models.title"></label>
+        </div>
+        <div id="modelsList"></div>
+        <button class="mini-btn" id="addModel">+ Додати модель</button>
+      </div>
+
+      <div class="panel">
+        <h2>Характеристики</h2>
+        <div class="row2">
+          <label class="field"><span>Надзаголовок</span><input type="text" data-k="spec.eyebrow"></label>
+          <label class="field"><span>Назва моделі</span><input type="text" data-k="spec.title"></label>
+        </div>
+        <div class="row3">
+          <label class="field"><span>Плитка 1 — підпис</span><input type="text" data-k="spec.stat1Label"></label>
+          <label class="field"><span>Плитка 1 — значення</span><input type="text" data-k="spec.stat1Value"></label>
+          <label class="field"><span>Плитка 1 — одиниця</span><input type="text" data-k="spec.stat1Unit"></label>
+        </div>
+        <div class="row2">
+          <label class="field"><span>Плитка 2 — підпис</span><input type="text" data-k="spec.stat2Label"></label>
+          <label class="field"><span>Плитка 2 — значення</span><input type="text" data-k="spec.stat2Value"></label>
+        </div>
+        <div class="row2">
+          <label class="field"><span>Код моделі на фото</span><input type="text" data-k="spec.imgCode"></label>
+          <label class="field"><span>Тег на фото</span><input type="text" data-k="spec.imgTag"></label>
+        </div>
+        <div class="row2">
+          <label class="field"><span>Виноска 1</span><input type="text" data-k="spec.callout1"></label>
+          <label class="field"><span>Виноска 2</span><input type="text" data-k="spec.callout2"></label>
+        </div>
+        <div class="img-field">
+          <img data-img-preview="spec.img" alt="">
+          <div class="meta">
+            <div class="path" data-img-path="spec.img"></div>
+            <input type="file" accept="image/*" data-img-upload="spec.img">
+          </div>
+        </div>
+        <h2 style="margin-top:10px">Таблиця характеристик</h2>
+        <div id="specRowsList"></div>
+        <button class="mini-btn" id="addSpecRow">+ Додати рядок</button>
+      </div>
+
+      <div class="panel">
+        <h2>Велике фото з цитатою</h2>
+        <label class="field"><span>Надзаголовок</span><input type="text" data-k="statement.eyebrow"></label>
+        <label class="field"><span>Текст</span><textarea data-k="statement.text"></textarea></label>
+        <div class="img-field">
+          <img data-img-preview="statement.img" alt="">
+          <div class="meta">
+            <div class="path" data-img-path="statement.img"></div>
+            <input type="file" accept="image/*" data-img-upload="statement.img">
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Бізнес-вигода</h2>
+        <div class="row2">
+          <label class="field"><span>Надзаголовок</span><input type="text" data-k="business.eyebrow"></label>
+          <label class="field"><span>Заголовок</span><input type="text" data-k="business.title"></label>
+        </div>
+        <div id="advList"></div>
+        <button class="mini-btn" id="addAdv">+ Додати картку</button>
+      </div>
+
+      <div class="panel">
+        <h2>Контакти</h2>
+        <div class="row2">
+          <label class="field"><span>Заголовок, частина 1</span><input type="text" data-k="contact.title1"></label>
+          <label class="field"><span>Заголовок, частина 2 (блакитна)</span><input type="text" data-k="contact.title2"></label>
+        </div>
+        <div class="row2">
+          <label class="field"><span>Телефон</span><input type="text" data-k="contact.phone"></label>
+          <label class="field"><span>Сайт</span><input type="text" data-k="contact.site"></label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="savebar" id="savebar" style="display:none">
+    <div class="inner">
+      <button class="btn btn--primary btn--sm" id="saveBtn">Опублікувати зміни</button>
+      <span id="status"></span>
+      <a href="../" target="_blank" rel="noopener" style="margin-left:auto; font-size:14px; color: var(--azure-700); text-decoration: underline;">Відкрити сайт ↗</a>
+      <button class="mini-btn" id="logoutBtn" style="height:32px">Вийти</button>
+    </div>
+  </div>
+
+<script>
+(function () {
+  var OWNER = "rost108", REPO = "l7-ihome", BRANCH = "main";
+  var API = "https://api.github.com/repos/" + OWNER + "/" + REPO + "/contents/";
+  var token = localStorage.getItem("l7_admin_token") || "";
+  var content = null;
+  var contentSha = null;
+
+  var $ = function (s) { return document.querySelector(s); };
+  var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
+
+  function setStatus(msg, cls) {
+    var el = $("#status");
+    el.textContent = msg || "";
+    el.className = cls || "";
+  }
+
+  function headers() {
+    return {
+      "Authorization": "Bearer " + token,
+      "Accept": "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28"
+    };
+  }
+
+  function b64encodeText(str) {
+    return btoa(unescape(encodeURIComponent(str)));
+  }
+  function b64decodeText(b64) {
+    return decodeURIComponent(escape(atob(b64.replace(/\n/g, ""))));
+  }
+
+  // ---- path helpers: "hero.badge" -> content.hero.badge ----
+  function getPath(obj, path) {
+    return path.split(".").reduce(function (o, k) { return o && o[k]; }, obj);
+  }
+  function setPath(obj, path, val) {
+    var keys = path.split("."), last = keys.pop();
+    var t = keys.reduce(function (o, k) { return o[k] = o[k] || {}; }, obj);
+    t[last] = val;
+  }
+
+  // ---- render dynamic lists ----
+  function modelItem(m, i) {
+    return '<div class="item" data-i="' + i + '">' +
+      '<button class="rm" title="Видалити" data-rm-model="' + i + '">×</button>' +
+      '<div class="row3">' +
+      '<label class="field"><span>Код</span><input type="text" data-mk="code" data-mi="' + i + '" value="' + escAttr(m.code) + '"></label>' +
+      '<label class="field"><span>Тег (порожньо = без тега)</span><input type="text" data-mk="tag" data-mi="' + i + '" value="' + escAttr(m.tag) + '"></label>' +
+      '<label class="field"><span>Назва</span><input type="text" data-mk="name" data-mi="' + i + '" value="' + escAttr(m.name) + '"></label>' +
+      '</div>' +
+      '<label class="field"><span>Опис (площа · гості)</span><input type="text" data-mk="meta" data-mi="' + i + '" value="' + escAttr(m.meta) + '"></label>' +
+      '<div class="img-field">' +
+      '<img src="../' + escAttr(m.img) + '" alt="">' +
+      '<div class="meta"><div class="path">' + esc(m.img) + '</div>' +
+      '<input type="file" accept="image/*" data-model-img="' + i + '"></div>' +
+      '</div></div>';
+  }
+  function specRowItem(r, i) {
+    return '<div class="item" data-i="' + i + '">' +
+      '<button class="rm" title="Видалити" data-rm-row="' + i + '">×</button>' +
+      '<div class="row3">' +
+      '<label class="field"><span>Параметр</span><input type="text" data-rk="k" data-ri="' + i + '" value="' + escAttr(r.k) + '"></label>' +
+      '<label class="field"><span>Значення</span><input type="text" data-rk="v" data-ri="' + i + '" value="' + escAttr(r.v) + '"></label>' +
+      '<label class="field"><span>Одиниця</span><input type="text" data-rk="unit" data-ri="' + i + '" value="' + escAttr(r.unit) + '"></label>' +
+      '</div></div>';
+  }
+  function advItem(b, i) {
+    var icons = ["spark", "layers", "bolt", "building"];
+    return '<div class="item" data-i="' + i + '">' +
+      '<button class="rm" title="Видалити" data-rm-adv="' + i + '">×</button>' +
+      '<div class="row2">' +
+      '<label class="field"><span>Заголовок</span><input type="text" data-ak="title" data-ai="' + i + '" value="' + escAttr(b.title) + '"></label>' +
+      '<label class="field"><span>Іконка</span><select data-ak="icon" data-ai="' + i + '">' +
+      icons.map(function (ic) { return '<option value="' + ic + '"' + (b.icon === ic ? " selected" : "") + ">" + ic + "</option>"; }).join("") +
+      '</select></label></div>' +
+      '<label class="field"><span>Текст</span><textarea data-ak="text" data-ai="' + i + '">' + esc(b.text) + '</textarea></label>' +
+      '</div>';
+  }
+
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]; }); }
+  function escAttr(s) { return esc(s).replace(/"/g, "&quot;"); }
+
+  function renderLists() {
+    $("#modelsList").innerHTML = content.models.items.map(modelItem).join("");
+    $("#specRowsList").innerHTML = content.spec.rows.map(specRowItem).join("");
+    $("#advList").innerHTML = content.business.items.map(advItem).join("");
+  }
+
+  function renderForm() {
+    $$("[data-k]").forEach(function (el) {
+      var v = getPath(content, el.getAttribute("data-k"));
+      el.value = v == null ? "" : v;
+    });
+    ["hero.img", "spec.img", "statement.img"].forEach(function (p) {
+      var v = getPath(content, p);
+      var prev = document.querySelector('[data-img-preview="' + p + '"]');
+      var path = document.querySelector('[data-img-path="' + p + '"]');
+      if (prev) prev.src = "../" + v;
+      if (path) path.textContent = v;
+    });
+    renderLists();
+  }
+
+  // ---- collect form -> content ----
+  function collect() {
+    $$("[data-k]").forEach(function (el) {
+      setPath(content, el.getAttribute("data-k"), el.value);
+    });
+    $$("[data-mk]").forEach(function (el) {
+      content.models.items[+el.getAttribute("data-mi")][el.getAttribute("data-mk")] = el.value;
+    });
+    $$("[data-rk]").forEach(function (el) {
+      content.spec.rows[+el.getAttribute("data-ri")][el.getAttribute("data-rk")] = el.value;
+    });
+    $$("[data-ak]").forEach(function (el) {
+      content.business.items[+el.getAttribute("data-ai")][el.getAttribute("data-ak")] = el.value;
+    });
+  }
+
+  // ---- GitHub API ----
+  function ghGet(path) {
+    return fetch(API + path + "?ref=" + BRANCH, { headers: headers() }).then(function (r) {
+      if (!r.ok) throw new Error("GitHub: " + r.status);
+      return r.json();
+    });
+  }
+  function ghPut(path, base64data, sha, message) {
+    var body = { message: message, content: base64data, branch: BRANCH };
+    if (sha) body.sha = sha;
+    return fetch(API + path, { method: "PUT", headers: headers(), body: JSON.stringify(body) })
+      .then(function (r) {
+        if (!r.ok) return r.json().then(function (j) { throw new Error("GitHub: " + r.status + " " + (j.message || "")); });
+        return r.json();
+      });
+  }
+
+  function loadContent() {
+    setStatus("Завантаження…");
+    return ghGet("content.json").then(function (j) {
+      contentSha = j.sha;
+      content = JSON.parse(b64decodeText(j.content));
+      renderForm();
+      setStatus("Готово до редагування", "ok");
+    });
+  }
+
+  function save() {
+    collect();
+    setStatus("Публікація…");
+    $("#saveBtn").disabled = true;
+    var data = b64encodeText(JSON.stringify(content, null, 2) + "\n");
+    ghPut("content.json", data, contentSha, "Оновлення контенту через адмінку")
+      .then(function (j) {
+        contentSha = j.content.sha;
+        setStatus("Опубліковано ✓ Сайт оновиться за ~1 хвилину", "ok");
+      })
+      .catch(function (e) { setStatus("Помилка: " + e.message, "err"); })
+      .then(function () { $("#saveBtn").disabled = false; });
+  }
+
+  // ---- image upload: write file to assets/, update path in content ----
+  function uploadImage(file, done) {
+    var name = "assets/" + Date.now() + "-" + file.name.toLowerCase().replace(/[^a-z0-9._-]+/g, "-");
+    var reader = new FileReader();
+    reader.onload = function () {
+      var bytes = new Uint8Array(reader.result);
+      var bin = "";
+      for (var i = 0; i < bytes.length; i += 0x8000) {
+        bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+      }
+      setStatus("Завантаження фото…");
+      ghPut(name, btoa(bin), null, "Фото через адмінку: " + name)
+        .then(function () { setStatus("Фото завантажено ✓ Натисніть «Опублікувати зміни»", "ok"); done(name); })
+        .catch(function (e) { setStatus("Помилка фото: " + e.message, "err"); });
+    };
+    reader.readAsArrayBuffer(file);
+  }
+
+  // ---- events ----
+  document.addEventListener("click", function (e) {
+    var t = e.target;
+    if (t.hasAttribute("data-rm-model")) { collect(); content.models.items.splice(+t.getAttribute("data-rm-model"), 1); renderLists(); }
+    if (t.hasAttribute("data-rm-row")) { collect(); content.spec.rows.splice(+t.getAttribute("data-rm-row"), 1); renderLists(); }
+    if (t.hasAttribute("data-rm-adv")) { collect(); content.business.items.splice(+t.getAttribute("data-rm-adv"), 1); renderLists(); }
+  });
+  document.addEventListener("change", function (e) {
+    var t = e.target;
+    if (t.hasAttribute("data-img-upload") && t.files[0]) {
+      var key = t.getAttribute("data-img-upload");
+      uploadImage(t.files[0], function (path) {
+        setPath(content, key, path);
+        renderForm();
+      });
+    }
+    if (t.hasAttribute("data-model-img") && t.files[0]) {
+      var i = +t.getAttribute("data-model-img");
+      collect();
+      uploadImage(t.files[0], function (path) {
+        content.models.items[i].img = path;
+        renderLists();
+      });
+    }
+  });
+
+  $("#addModel").addEventListener("click", function () {
+    collect();
+    content.models.items.push({ code: "L7-", tag: "", name: "Капсула ", meta: "", img: "assets/capsule-t8.jpg" });
+    renderLists();
+  });
+  $("#addSpecRow").addEventListener("click", function () {
+    collect();
+    content.spec.rows.push({ k: "", v: "", unit: "" });
+    renderLists();
+  });
+  $("#addAdv").addEventListener("click", function () {
+    collect();
+    content.business.items.push({ icon: "spark", title: "", text: "" });
+    renderLists();
+  });
+
+  $("#saveBtn").addEventListener("click", save);
+  $("#logoutBtn").addEventListener("click", function () {
+    localStorage.removeItem("l7_admin_token");
+    location.reload();
+  });
+
+  function start() {
+    $("#authPanel").style.display = "none";
+    $("#app").style.display = "block";
+    $("#savebar").style.display = "block";
+    loadContent().catch(function (e) {
+      setStatus("Не вдалося завантажити: " + e.message, "err");
+      $("#authPanel").style.display = "block";
+      $("#app").style.display = "none";
+      $("#savebar").style.display = "none";
+      localStorage.removeItem("l7_admin_token");
+    });
+  }
+
+  $("#loginBtn").addEventListener("click", function () {
+    token = $("#token").value.trim();
+    if (!token) return;
+    localStorage.setItem("l7_admin_token", token);
+    start();
+  });
+  $("#token").addEventListener("keydown", function (e) { if (e.key === "Enter") $("#loginBtn").click(); });
+
+  if (token) start();
+})();
+</script>
+</body>
+</html>

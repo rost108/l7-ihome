@@ -23,7 +23,7 @@
         <a href="#business">Для бізнесу</a>
         <a href="#contact">Контакти</a>
       </nav>
-      <span class="nav-phone">+380 93 938 2777</span>
+      <span class="nav-phone" data-cms="nav.phone">+380 93 938 2777</span>
       <a href="#contact" class="btn btn--primary btn--sm">Замовити прорахунок</a>
       <button class="nav-toggle" id="navToggle" aria-label="Меню">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -37,27 +37,27 @@
   <section class="hero">
     <div class="container">
       <div>
-        <span class="badge badge--outline">Український виробник капсульних домів</span>
-        <h1>Простір майбутнього.<br><span class="accent">Вже сьогодні.</span></h1>
-        <p class="lead">Преміальні капсульні будинки під ключ — для приватного життя, глемпінгу та бізнесу.</p>
+        <span class="badge badge--outline" data-cms="hero.badge">Український виробник капсульних домів</span>
+        <h1><span data-cms="hero.title1">Простір майбутнього.</span><br><span class="accent" data-cms="hero.title2">Вже сьогодні.</span></h1>
+        <p class="lead" data-cms="hero.lead">Преміальні капсульні будинки під ключ — для приватного життя, глемпінгу та бізнесу.</p>
         <div class="hero-cta">
           <a href="#contact" class="btn btn--primary">Замовити прорахунок →</a>
           <a href="#models" class="btn btn--ghost">Модельний ряд</a>
         </div>
         <div class="hero-contacts">
-          <span>+380 93 938 2777</span>
+          <span data-cms="hero.phone">+380 93 938 2777</span>
           <span class="dot">·</span>
-          <span>L7IHOME.COM</span>
+          <span data-cms="hero.site">L7IHOME.COM</span>
         </div>
       </div>
       <div class="hero-visual">
         <div class="badges">
-          <span class="badge badge--ink">L7-T8</span>
-          <span class="badge badge--brand">Хіт продажів</span>
+          <span class="badge badge--ink" data-cms="hero.imgCode">L7-T8</span>
+          <span class="badge badge--brand" data-cms="hero.imgTag">Хіт продажів</span>
         </div>
-        <img src="assets/capsule-t8.jpg" alt="Капсульний будинок L7-T8">
-        <span class="callout callout--glass">Подвійне ізоляційне скло</span>
-        <span class="callout callout--alloy">Алюмінієвий сплав + фторвуглець</span>
+        <img src="assets/capsule-t8.jpg" alt="Капсульний будинок L7" data-cms-img="hero.img">
+        <span class="callout callout--glass" data-cms="hero.callout1">Подвійне ізоляційне скло</span>
+        <span class="callout callout--alloy" data-cms="hero.callout2">Алюмінієвий сплав + фторвуглець</span>
       </div>
     </div>
   </section>
@@ -65,9 +65,9 @@
   <!-- ================= LINEUP (slide 02 — Модельний ряд) ================= -->
   <section class="section-pad" id="models">
     <div class="container">
-      <span class="eyebrow">Модельний ряд</span>
-      <h2 class="section-title">Три формати під будь-яке завдання</h2>
-      <div class="lineup-grid">
+      <span class="eyebrow" data-cms="models.eyebrow">Модельний ряд</span>
+      <h2 class="section-title" data-cms="models.title">Три формати під будь-яке завдання</h2>
+      <div class="lineup-grid" id="modelsGrid">
         <article class="model-card">
           <div class="model-figure">
             <div class="badges">
@@ -115,27 +115,27 @@
     <div class="container">
       <div class="spec-visual">
         <div class="badges">
-          <span class="badge badge--ink">L7-T8</span>
-          <span class="badge badge--brand">Хіт продажів</span>
+          <span class="badge badge--ink" data-cms="spec.imgCode">L7-T8</span>
+          <span class="badge badge--brand" data-cms="spec.imgTag">Хіт продажів</span>
         </div>
-        <img src="assets/capsule-t8.jpg" alt="Капсула L7-T8 — характеристики">
-        <span class="callout callout--glass">Подвійне ізоляційне скло</span>
-        <span class="callout callout--alloy">Алюмінієвий сплав + фторвуглець</span>
+        <img src="assets/capsule-t8.jpg" alt="Капсула L7 — характеристики" data-cms-img="spec.img">
+        <span class="callout callout--glass" data-cms="spec.callout1">Подвійне ізоляційне скло</span>
+        <span class="callout callout--alloy" data-cms="spec.callout2">Алюмінієвий сплав + фторвуглець</span>
       </div>
       <div class="spec-facts">
-        <span class="eyebrow">Характеристики</span>
-        <h2>Капсула T8</h2>
+        <span class="eyebrow" data-cms="spec.eyebrow">Характеристики</span>
+        <h2 data-cms="spec.title">Капсула T8</h2>
         <div class="stat-tiles">
           <div class="stat-tile">
-            <span class="eyebrow">Корисна площа</span>
-            <div class="val">37.95 <small>М²</small></div>
+            <span class="eyebrow" data-cms="spec.stat1Label">Корисна площа</span>
+            <div class="val" data-cms="spec.stat1Value">37.95 <small>М²</small></div>
           </div>
           <div class="stat-tile">
-            <span class="eyebrow">Гостей</span>
-            <div class="val">4 – 6</div>
+            <span class="eyebrow" data-cms="spec.stat2Label">Гостей</span>
+            <div class="val" data-cms="spec.stat2Value">4 – 6</div>
           </div>
         </div>
-        <div>
+        <div id="specRows">
           <div class="spec-row"><span class="k">Габарити</span><span class="v">11500*3300*3300<small>ММ</small></span></div>
           <div class="spec-row"><span class="k">Споживання енергії</span><span class="v">12<small>KW</small></span></div>
           <div class="spec-row"><span class="k">Планування</span><span class="v">2 кімнати + ванна</span></div>
@@ -148,19 +148,19 @@
 
   <!-- ================= STATEMENT (slide 04) ================= -->
   <section class="statement on-ink">
-    <img src="assets/statement-photo.jpg" alt="Капсульний будинок L7 у природі">
+    <img src="assets/statement-photo.jpg" alt="Капсульний будинок L7 у природі" data-cms-img="statement.img">
     <div class="container">
-      <span class="eyebrow">Швидко та красиво</span>
-      <h2>Є місця, які запам’ятовуються назавжди. Ми знаємо, як їх створити.</h2>
+      <span class="eyebrow" data-cms="statement.eyebrow">Швидко та красиво</span>
+      <h2 data-cms="statement.text">Є місця, які запам’ятовуються назавжди. Ми знаємо, як їх створити.</h2>
     </div>
   </section>
 
   <!-- ================= BUSINESS (slide 05 — Бізнес-вигода) ================= -->
   <section class="business section-pad" id="business">
     <div class="container">
-      <span class="eyebrow">Бізнес-вигода</span>
-      <h2 class="section-title">Чому капсула L7 окупається</h2>
-      <div class="adv-grid">
+      <span class="eyebrow" data-cms="business.eyebrow">Бізнес-вигода</span>
+      <h2 class="section-title" data-cms="business.title">Чому капсула L7 окупається</h2>
+      <div class="adv-grid" id="advGrid">
         <div class="adv">
           <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3Z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15Z"/></svg></div>
           <div>
@@ -196,20 +196,20 @@
   <!-- ================= CONTACT (slide 06) ================= -->
   <section class="contact on-ink" id="contact">
     <div class="container">
-      <span class="eyebrow">Контакти</span>
-      <h2>Готові створити своє місце, <span class="accent">яке запам’ятовується назавжди?</span></h2>
+      <span class="eyebrow" data-cms="contact.eyebrow">Контакти</span>
+      <h2><span data-cms="contact.title1">Готові створити своє місце, </span><span class="accent" data-cms="contact.title2">яке запам’ятовується назавжди?</span></h2>
       <div class="contact-cta">
-        <a href="tel:+380939382777" class="btn btn--primary">Замовити прорахунок →</a>
+        <a href="tel:+380939382777" class="btn btn--primary" id="contactTel">Замовити прорахунок →</a>
         <a href="https://l7ihome.com" class="btn btn--ghost-light">L7IHOME.COM</a>
       </div>
       <div class="contact-details">
         <div>
           <span class="eyebrow">Телефон</span>
-          <div class="big">+380 93 938 2777</div>
+          <div class="big" data-cms="contact.phone">+380 93 938 2777</div>
         </div>
         <div>
           <span class="eyebrow">Сайт</span>
-          <div class="big">L7IHOME.COM</div>
+          <div class="big" data-cms="contact.site">L7IHOME.COM</div>
         </div>
       </div>
     </div>
@@ -223,7 +223,7 @@
         <span class="word">iHOME</span>
       </a>
       <span>Простір майбутнього. Вже сьогодні.</span>
-      <span>© 2026 L7 iHOME · +380 93 938 2777</span>
+      <span data-cms="footer.phone">© 2026 L7 iHOME · +380 93 938 2777</span>
     </div>
   </footer>
 
