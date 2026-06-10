@@ -110,39 +110,51 @@
     </div>
   </section>
 
-  <!-- ================= SPEC (slide 03 — Характеристики) ================= -->
+  <!-- ================= SPEC (slide 03 — Характеристики, слайдер моделей) ================= -->
   <section class="spec-section section-pad" id="spec">
     <div class="container">
-      <div class="spec-visual">
-        <div class="badges">
-          <span class="badge badge--ink" data-cms="spec.imgCode">L7-T8</span>
-          <span class="badge badge--brand" data-cms="spec.imgTag">Хіт продажів</span>
-        </div>
-        <img src="assets/capsule-t8.jpg" alt="Капсула L7 — характеристики" data-cms-img="spec.img">
-        <span class="callout callout--glass" data-cms="spec.callout1">Подвійне ізоляційне скло</span>
-        <span class="callout callout--alloy" data-cms="spec.callout2">Алюмінієвий сплав + фторвуглець</span>
-      </div>
-      <div class="spec-facts">
+      <div class="spec-head">
         <span class="eyebrow" data-cms="spec.eyebrow">Характеристики</span>
-        <h2 data-cms="spec.title">Капсула T8</h2>
-        <div class="stat-tiles">
-          <div class="stat-tile">
-            <span class="eyebrow" data-cms="spec.stat1Label">Корисна площа</span>
-            <div class="val" data-cms="spec.stat1Value">37.95 <small>М²</small></div>
-          </div>
-          <div class="stat-tile">
-            <span class="eyebrow" data-cms="spec.stat2Label">Гостей</span>
-            <div class="val" data-cms="spec.stat2Value">4 – 6</div>
-          </div>
-        </div>
-        <div id="specRows">
-          <div class="spec-row"><span class="k">Габарити</span><span class="v">11500*3300*3300<small>ММ</small></span></div>
-          <div class="spec-row"><span class="k">Споживання енергії</span><span class="v">12<small>KW</small></span></div>
-          <div class="spec-row"><span class="k">Планування</span><span class="v">2 кімнати + ванна</span></div>
-          <div class="spec-row"><span class="k">Каркас</span><span class="v">оцинкована сталь</span></div>
-          <div class="spec-row"><span class="k">Вага</span><span class="v">6 тонн</span></div>
+        <div class="spec-nav">
+          <button type="button" id="specPrev" aria-label="Попередня модель">&#8592;</button>
+          <button type="button" id="specNext" aria-label="Наступна модель">&#8594;</button>
         </div>
       </div>
+      <div class="spec-slider" id="specSlider">
+        <div class="spec-slide">
+          <div class="spec-visual">
+            <div class="badges">
+              <span class="badge badge--ink">L7-T8</span>
+              <span class="badge badge--brand">Хіт продажів</span>
+            </div>
+            <img src="assets/capsule-t8.jpg" alt="Капсула L7 — характеристики">
+            <span class="callout callout--glass">Подвійне ізоляційне скло</span>
+            <span class="callout callout--alloy">Алюмінієвий сплав + фторвуглець</span>
+          </div>
+          <div class="spec-facts">
+            <h2>Капсула T8</h2>
+            <div class="stat-tiles">
+              <div class="stat-tile">
+                <span class="eyebrow">Корисна площа</span>
+                <div class="val">37.95 <small>М²</small></div>
+              </div>
+              <div class="stat-tile">
+                <span class="eyebrow">Гостей</span>
+                <div class="val">4 – 6</div>
+              </div>
+            </div>
+            <div>
+              <div class="spec-row"><span class="k">Габарити</span><span class="v">11500*3300*3300<small>ММ</small></span></div>
+              <div class="spec-row"><span class="k">Споживання енергії</span><span class="v">12<small>KW</small></span></div>
+              <div class="spec-row"><span class="k">Планування</span><span class="v">2 кімнати + ванна</span></div>
+              <div class="spec-row"><span class="k">Каркас</span><span class="v">оцинкована сталь</span></div>
+              <div class="spec-row"><span class="k">Вага</span><span class="v">6 тонн</span></div>
+            </div>
+            <a class="btn btn--ghost btn--sm spec-more" href="model.html?id=t8">Детальніше про Капсула T8 →</a>
+          </div>
+        </div>
+      </div>
+      <div class="spec-dots" id="specDots"></div>
     </div>
   </section>
 

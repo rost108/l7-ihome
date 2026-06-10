@@ -123,38 +123,10 @@
       </div>
 
       <div class="panel">
-        <h2>Характеристики</h2>
-        <div class="row2">
-          <label class="field"><span>Надзаголовок</span><input type="text" data-k="spec.eyebrow"></label>
-          <label class="field"><span>Назва моделі</span><input type="text" data-k="spec.title"></label>
-        </div>
-        <div class="row3">
-          <label class="field"><span>Плитка 1 — підпис</span><input type="text" data-k="spec.stat1Label"></label>
-          <label class="field"><span>Плитка 1 — значення</span><input type="text" data-k="spec.stat1Value"></label>
-          <label class="field"><span>Плитка 1 — одиниця</span><input type="text" data-k="spec.stat1Unit"></label>
-        </div>
-        <div class="row2">
-          <label class="field"><span>Плитка 2 — підпис</span><input type="text" data-k="spec.stat2Label"></label>
-          <label class="field"><span>Плитка 2 — значення</span><input type="text" data-k="spec.stat2Value"></label>
-        </div>
-        <div class="row2">
-          <label class="field"><span>Код моделі на фото</span><input type="text" data-k="spec.imgCode"></label>
-          <label class="field"><span>Тег на фото</span><input type="text" data-k="spec.imgTag"></label>
-        </div>
-        <div class="row2">
-          <label class="field"><span>Виноска 1</span><input type="text" data-k="spec.callout1"></label>
-          <label class="field"><span>Виноска 2</span><input type="text" data-k="spec.callout2"></label>
-        </div>
-        <div class="img-field">
-          <img data-img-preview="spec.img" alt="">
-          <div class="meta">
-            <div class="path" data-img-path="spec.img"></div>
-            <input type="file" accept="image/*" data-img-upload="spec.img">
-          </div>
-        </div>
-        <h2 style="margin-top:10px">Таблиця характеристик</h2>
-        <div id="specRowsList"></div>
-        <button class="mini-btn" id="addSpecRow">+ Додати рядок</button>
+        <h2>Секція «Характеристики» (слайдер)</h2>
+        <label class="field"><span>Надзаголовок секції</span><input type="text" data-k="spec.eyebrow"></label>
+        <p class="hint">Слайди цієї секції будуються автоматично з моделей у «Модельному ряду» вище:
+          плитки, виноски на фото і таблиця характеристик редагуються там, у картці кожної моделі.</p>
       </div>
 
       <div class="panel">
@@ -300,15 +272,6 @@
       '<input type="file" accept="image/*" data-gal-img="' + i + '"></div>' +
       '</div>';
   }
-  function specRowItem(r, i) {
-    return '<div class="item" data-i="' + i + '">' +
-      '<button class="rm" title="Видалити" data-rm-row="' + i + '">×</button>' +
-      '<div class="row3">' +
-      '<label class="field"><span>Параметр</span><input type="text" data-rk="k" data-ri="' + i + '" value="' + escAttr(r.k) + '"></label>' +
-      '<label class="field"><span>Значення</span><input type="text" data-rk="v" data-ri="' + i + '" value="' + escAttr(r.v) + '"></label>' +
-      '<label class="field"><span>Одиниця</span><input type="text" data-rk="unit" data-ri="' + i + '" value="' + escAttr(r.unit) + '"></label>' +
-      '</div></div>';
-  }
   function advItem(b, i) {
     var icons = ["spark", "layers", "bolt", "building"];
     return '<div class="item" data-i="' + i + '">' +
@@ -327,7 +290,6 @@
 
   function renderLists() {
     $("#modelsList").innerHTML = content.models.items.map(modelItem).join("");
-    $("#specRowsList").innerHTML = content.spec.rows.map(specRowItem).join("");
     $("#advList").innerHTML = content.business.items.map(advItem).join("");
   }
 
@@ -336,7 +298,7 @@
       var v = getPath(content, el.getAttribute("data-k"));
       el.value = v == null ? "" : v;
     });
-    ["hero.img", "spec.img", "statement.img"].forEach(function (p) {
+    ["hero.img", "statement.img"].forEach(function (p) {
       var v = getPath(content, p);
       var prev = document.querySelector('[data-img-preview="' + p + '"]');
       var path = document.querySelector('[data-img-path="' + p + '"]');
@@ -357,9 +319,6 @@
     $$("[data-mrk]").forEach(function (el) {
       var m = content.models.items[+el.getAttribute("data-mmi")];
       (m.rows = m.rows || [])[+el.getAttribute("data-mri")][el.getAttribute("data-mrk")] = el.value;
-    });
-    $$("[data-rk]").forEach(function (el) {
-      content.spec.rows[+el.getAttribute("data-ri")][el.getAttribute("data-rk")] = el.value;
     });
     $$("[data-ak]").forEach(function (el) {
       content.business.items[+el.getAttribute("data-ai")][el.getAttribute("data-ak")] = el.value;
@@ -429,7 +388,6 @@
   document.addEventListener("click", function (e) {
     var t = e.target;
     if (t.hasAttribute("data-rm-model")) { collect(); content.models.items.splice(+t.getAttribute("data-rm-model"), 1); renderLists(); }
-    if (t.hasAttribute("data-rm-row")) { collect(); content.spec.rows.splice(+t.getAttribute("data-rm-row"), 1); renderLists(); }
     if (t.hasAttribute("data-rm-adv")) { collect(); content.business.items.splice(+t.getAttribute("data-rm-adv"), 1); renderLists(); }
     if (t.hasAttribute("data-rm-mrow")) {
       var pr = t.getAttribute("data-rm-mrow").split(":");
@@ -477,11 +435,6 @@
   $("#addModel").addEventListener("click", function () {
     collect();
     content.models.items.push({ code: "L7-", slug: "", tag: "", name: "Капсула ", meta: "", img: "assets/capsule-t8.jpg", desc: "", stat1Label: "Корисна площа", stat1Value: "", stat1Unit: "М²", stat2Label: "Гостей", stat2Value: "", callout1: "", callout2: "", rows: [], gallery: [] });
-    renderLists();
-  });
-  $("#addSpecRow").addEventListener("click", function () {
-    collect();
-    content.spec.rows.push({ k: "", v: "", unit: "" });
     renderLists();
   });
   $("#addAdv").addEventListener("click", function () {

@@ -69,25 +69,34 @@
       }).join("");
     }
 
-    // Spec
+    // Spec — slider over all models
     text("spec.eyebrow", c.spec.eyebrow);
-    text("spec.title", c.spec.title);
-    text("spec.stat1Label", c.spec.stat1Label);
-    text("spec.stat2Label", c.spec.stat2Label);
-    text("spec.stat2Value", c.spec.stat2Value);
-    text("spec.imgCode", c.spec.imgCode);
-    text("spec.imgTag", c.spec.imgTag);
-    text("spec.callout1", c.spec.callout1);
-    text("spec.callout2", c.spec.callout2);
-    img("spec.img", c.spec.img);
-    var stat1 = document.querySelector('[data-cms="spec.stat1Value"]');
-    if (stat1) stat1.innerHTML = esc(c.spec.stat1Value) + " <small>" + esc(c.spec.stat1Unit) + "</small>";
-    var rows = document.getElementById("specRows");
-    if (rows && c.spec.rows) {
-      rows.innerHTML = c.spec.rows.map(function (r) {
-        return '<div class="spec-row"><span class="k">' + esc(r.k) + '</span>' +
-          '<span class="v">' + esc(r.v) + (r.unit ? "<small>" + esc(r.unit) + "</small>" : "") + "</span></div>";
+    var slider = document.getElementById("specSlider");
+    if (slider && c.models.items && c.models.items.length) {
+      slider.innerHTML = c.models.items.map(function (m) {
+        return '<div class="spec-slide">' +
+          '<div class="spec-visual">' +
+          '<div class="badges"><span class="badge badge--ink">' + esc(m.code) + "</span>" +
+          (m.tag ? '<span class="badge badge--brand">' + esc(m.tag) + "</span>" : "") +
+          '</div><img src="' + esc(m.img) + '" alt="' + esc(m.name) + '" loading="lazy">' +
+          (m.callout1 ? '<span class="callout callout--glass">' + esc(m.callout1) + "</span>" : "") +
+          (m.callout2 ? '<span class="callout callout--alloy">' + esc(m.callout2) + "</span>" : "") +
+          "</div>" +
+          '<div class="spec-facts">' +
+          "<h2>" + esc(m.name) + "</h2>" +
+          '<div class="stat-tiles">' +
+          '<div class="stat-tile"><span class="eyebrow">' + esc(m.stat1Label || "Корисна площа") + '</span><div class="val">' +
+          esc(m.stat1Value || "") + (m.stat1Unit ? " <small>" + esc(m.stat1Unit) + "</small>" : "") + "</div></div>" +
+          '<div class="stat-tile"><span class="eyebrow">' + esc(m.stat2Label || "Гостей") + '</span><div class="val">' + esc(m.stat2Value || "") + "</div></div>" +
+          "</div>" +
+          "<div>" + (m.rows || []).map(function (r) {
+            return '<div class="spec-row"><span class="k">' + esc(r.k) + '</span>' +
+              '<span class="v">' + esc(r.v) + (r.unit ? "<small>" + esc(r.unit) + "</small>" : "") + "</span></div>";
+          }).join("") + "</div>" +
+          '<a class="btn btn--ghost btn--sm spec-more" href="model.html?id=' + encodeURIComponent(m.slug || "") + '">Детальніше про ' + esc(m.name) + " →</a>" +
+          "</div></div>";
       }).join("");
+      initSpecSlider(c.models.items.length);
     }
 
     // Statement
@@ -116,6 +125,51 @@
     if (tel && c.contact.phone) tel.href = "tel:" + c.contact.phone.replace(/[^+\d]/g, "");
     var foot = document.querySelector('[data-cms="footer.phone"]');
     if (foot && c.contact.phone) foot.textContent = "© " + new Date().getFullYear() + " L7 iHOME · " + c.contact.phone;
+  }
+
+  // ---- spec slider: native scroll-snap + arrows + dots ----
+  function initSpecSlider(count) {
+    var slider = document.getElementById("specSlider");
+    var dots = document.getElementById("specDots");
+    var prev = document.getElementById("specPrev");
+    var next = document.getElementById("specNext");
+    if (!slider || !dots) return;
+
+    dots.innerHTML = "";
+    for (var i = 0; i < count; i++) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.setAttribute("aria-label", "Модель " + (i + 1));
+      if (i === 0) b.className = "active";
+      (function (idx) {
+        b.addEventListener("click", function () {
+          slider.scrollTo({ left: idx * slider.clientWidth, behavior: "smooth" });
+        });
+      })(i);
+      dots.appendChild(b);
+    }
+
+    function current() {
+      return Math.round(slider.scrollLeft / slider.clientWidth);
+    }
+    function go(delta) {
+      var idx = Math.max(0, Math.min(count - 1, current() + delta));
+      slider.scrollTo({ left: idx * slider.clientWidth, behavior: "smooth" });
+    }
+    if (prev) prev.onclick = function () { go(-1); };
+    if (next) next.onclick = function () { go(1); };
+
+    var ticking = false;
+    slider.addEventListener("scroll", function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        ticking = false;
+        var idx = current();
+        var all = dots.querySelectorAll("button");
+        for (var j = 0; j < all.length; j++) all[j].classList.toggle("active", j === idx);
+      });
+    });
   }
 
   fetch("content.json?v=" + Date.now())

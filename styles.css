@@ -344,7 +344,43 @@ a.model-card { display: block; color: inherit; }
    SPEC  (deck slide 03 — Характеристики T8)
    ============================================================ */
 .spec-section { background: var(--surface-card); }
-.spec-section .container { display: grid; grid-template-columns: 1.15fr 1fr; gap: var(--space-16); align-items: stretch; }
+
+/* slider chrome */
+.spec-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-8); }
+.spec-nav { display: flex; gap: var(--space-2); }
+.spec-nav button {
+  width: 44px; height: 44px; border-radius: var(--radius-pill); cursor: pointer;
+  border: var(--bw-1) solid var(--border-default); background: var(--white);
+  font-size: 18px; color: var(--text-strong); line-height: 1;
+  transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+}
+.spec-nav button:hover { border-color: var(--border-strong); background: var(--surface-sunken); }
+.spec-nav button:active { transform: translateY(1px); }
+
+.spec-slider {
+  display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+  scroll-behavior: smooth; -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; margin: 0 calc(-1 * var(--gutter)); padding: 0 var(--gutter);
+}
+.spec-slider::-webkit-scrollbar { display: none; }
+
+.spec-slide {
+  flex: 0 0 100%; scroll-snap-align: start;
+  display: grid; grid-template-columns: 1.15fr 1fr; gap: var(--space-16); align-items: stretch;
+  padding-right: var(--gutter); box-sizing: border-box;
+}
+
+.spec-more { margin-top: var(--space-6); align-self: flex-start; }
+.spec-facts { display: flex; flex-direction: column; align-items: flex-start; }
+.spec-facts > div { align-self: stretch; }
+
+.spec-dots { display: flex; gap: 10px; justify-content: center; margin-top: var(--space-8); }
+.spec-dots button {
+  width: 10px; height: 10px; border-radius: var(--radius-pill); border: none; cursor: pointer;
+  background: var(--grey-200); padding: 0;
+  transition: background var(--dur-fast) var(--ease-out), width var(--dur-base) var(--ease-out);
+}
+.spec-dots button.active { background: var(--azure-500); width: 26px; }
 .spec-visual {
   position: relative; background: var(--bg-studio);
   border: var(--bw-hair) solid var(--border-hairline); border-radius: var(--radius-2xl);
@@ -435,7 +471,7 @@ a.model-card { display: block; color: inherit; }
   .hero .container { grid-template-columns: 1fr; }
   .hero-visual { order: -1; max-width: 560px; }
   .lineup-grid { grid-template-columns: 1fr 1fr; }
-  .spec-section .container { grid-template-columns: 1fr; }
+  .spec-slide { grid-template-columns: 1fr; gap: var(--space-8); }
   .spec-visual { min-height: 380px; }
 }
 
