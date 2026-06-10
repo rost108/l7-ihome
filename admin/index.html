@@ -74,15 +74,10 @@
     <!-- ===== AUTH ===== -->
     <div class="panel" id="authPanel">
       <h2>Вхід</h2>
-      <label class="field"><span>GitHub token</span>
-        <input type="password" id="token" placeholder="github_pat_…" autocomplete="off">
+      <label class="field"><span>Пароль</span>
+        <input type="password" id="token" placeholder="Пароль адміністратора" autocomplete="current-password">
       </label>
-      <p class="hint">
-        Потрібен GitHub-токен з правом запису в репозиторій <b>rost108/l7-ihome</b>.
-        Створити: <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a>
-        → Repository access: <b>Only select repositories → l7-ihome</b> → Permissions → <b>Contents: Read and write</b>.
-        Токен зберігається лише у вашому браузері.
-      </p>
+      <p class="hint" id="authHint">Вхід зберігається у вашому браузері — наступного разу пароль не знадобиться.</p>
       <button class="btn btn--primary btn--sm" id="loginBtn" style="margin-top:8px">Увійти</button>
     </div>
 
@@ -448,11 +443,53 @@
     });
   }
 
+  // ---- password → token (AES-GCM blob, key derived via PBKDF2) ----
+  var ENC = {
+    salt: "sgGVM2OOScpTAR+LAUV6Bw==",
+    iv: "hi8DjeHqi35GuA+x",
+    ct: "hcrbj7zip3KCddt51s2AQJ2nMtQ4VKJfIYBc6OqNHzZFCaJmxBs8HOQTtdlfP1kbuEBNgBw2BYFPqaosWQqvakGCxrrPOUpSDolslLsmW8TP7bAaD0UafvhWbeZAuFSt4xoeaRasYel9s1UB8A==",
+    iterations: 600000
+  };
+  function b64bytes(b64) {
+    var bin = atob(b64), out = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+    return out;
+  }
+  function decryptToken(password) {
+    var enc = new TextEncoder();
+    return crypto.subtle.importKey("raw", enc.encode(password), "PBKDF2", false, ["deriveKey"])
+      .then(function (keyMat) {
+        return crypto.subtle.deriveKey(
+          { name: "PBKDF2", salt: b64bytes(ENC.salt), iterations: ENC.iterations, hash: "SHA-256" },
+          keyMat, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+      })
+      .then(function (key) {
+        return crypto.subtle.decrypt({ name: "AES-GCM", iv: b64bytes(ENC.iv) }, key, b64bytes(ENC.ct));
+      })
+      .then(function (buf) { return new TextDecoder().decode(buf); });
+  }
+
   $("#loginBtn").addEventListener("click", function () {
-    token = $("#token").value.trim();
-    if (!token) return;
-    localStorage.setItem("l7_admin_token", token);
-    start();
+    var input = $("#token").value.trim();
+    if (!input) return;
+    // a pasted GitHub token still works as a fallback
+    if (/^(github_pat_|ghp_)/.test(input)) {
+      token = input;
+      localStorage.setItem("l7_admin_token", token);
+      start();
+      return;
+    }
+    var hint = $("#authHint");
+    hint.textContent = "Перевірка пароля…";
+    $("#loginBtn").disabled = true;
+    decryptToken(input).then(function (t) {
+      token = t;
+      localStorage.setItem("l7_admin_token", token);
+      hint.textContent = "Вхід зберігається у вашому браузері — наступного разу пароль не знадобиться.";
+      start();
+    }).catch(function () {
+      hint.textContent = "Невірний пароль. Спробуйте ще раз.";
+    }).then(function () { $("#loginBtn").disabled = false; });
   });
   $("#token").addEventListener("keydown", function (e) { if (e.key === "Enter") $("#loginBtn").click(); });
 
