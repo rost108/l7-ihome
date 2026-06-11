@@ -336,25 +336,21 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); color: var(--text-stro
 .hero-copy .lead { margin: var(--space-4) auto 0; max-width: 560px; color: var(--text-muted); }
 .hero-cta { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-top: var(--space-8); justify-content: center; position: relative; z-index: 6; }
 
-/* ---- сцена з подіумом: повноекранна (cover) — заповнює весь hero край-в-край ---- */
+/* ---- сцена з подіумом: велика капсула внизу екрана, текст/кнопки над нею ---- */
 .hero-scene {
   position: absolute; inset: 0; z-index: 1;
-  display: flex; align-items: center; justify-content: center;
+  display: flex; align-items: flex-end; justify-content: center;
   overflow: hidden; pointer-events: none;
 }
 .hero-scene .stage {
   position: relative;
-  /* капсула на всю висоту поля; боки заповнює той самий студійний градієнт — візуально на весь екран */
-  width: min(99vw, calc((100svh - 73px) * 1700 / 980));
+  height: 66%;                  /* капсула + подіум у нижній частині, тіло — нижче кнопок */
+  width: auto;
   aspect-ratio: 1700 / 980;
-  transform: translateY(6%);   /* трохи нижче — тіло капсули під текстом */
+  max-width: 99vw;
   perspective: 2200px; perspective-origin: 50% 42%;
 }
-/* делікатний світлий градієнт під текстом — щоб заголовок/кнопки лишались читабельними поверх капсули */
-.hero-360 .hero-scrim {
-  position: absolute; inset: 0; z-index: 2; pointer-events: none;
-  background: linear-gradient(180deg, rgba(245,247,249,0.92) 0%, rgba(245,247,249,0.55) 26%, rgba(245,247,249,0) 50%);
-}
+.hero-360 .hero-scrim { display: none; }
 .hero-scene .rig { position: absolute; inset: 0; transform-style: preserve-3d; will-change: transform; }
 
 .podium {
