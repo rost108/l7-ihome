@@ -125,6 +125,96 @@
     if (tel && c.contact.phone) tel.href = "tel:" + c.contact.phone.replace(/[^+\d]/g, "");
     var foot = document.querySelector('[data-cms="footer.phone"]');
     if (foot && c.contact.phone) foot.textContent = "© " + new Date().getFullYear() + " L7 iHOME · " + c.contact.phone;
+
+    // fill model select in the lead form
+    var sel = document.getElementById("leadModel");
+    if (sel && c.models && c.models.items) {
+      c.models.items.forEach(function (m) {
+        var o = document.createElement("option");
+        o.value = m.name; o.textContent = m.name + (m.meta ? " (" + m.meta + ")" : "");
+        sel.appendChild(o);
+      });
+      var pre = new URLSearchParams(location.search).get("model");
+      if (pre) sel.value = pre;
+    }
+
+    initLeadForm((c.settings && c.settings.web3formsKey) || "");
+    initAnalytics((c.settings && c.settings.gaId) || "");
+  }
+
+  // ---- lead form → Web3Forms (заявки приходять на email) ----
+  var leadInited = false;
+  function initLeadForm(key) {
+    var form = document.getElementById("leadForm");
+    var done = document.getElementById("leadDone");
+    var note = document.getElementById("leadNote");
+    if (!form || leadInited) return;
+    leadInited = true;
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var name = form.name.value.trim();
+      var phone = form.phone.value.trim();
+      note.classList.remove("err");
+
+      if (!name) { note.textContent = "Вкажіть, будь ласка, ваше ім’я."; note.classList.add("err"); form.name.focus(); return; }
+      if (phone.replace(/[^\d]/g, "").length < 9) { note.textContent = "Вкажіть коректний номер телефону."; note.classList.add("err"); form.phone.focus(); return; }
+
+      var btn = form.querySelector(".lead-submit");
+      btn.disabled = true; btn.textContent = "Надсилаємо…";
+
+      if (!key) {
+        // Ключ форми ще не налаштовано в адмінці — не втрачаємо заявку
+        console.warn("L7: web3formsKey не налаштовано в content.json → settings.web3formsKey");
+        showDone();
+        return;
+      }
+
+      var payload = {
+        access_key: key,
+        subject: "Нова заявка з сайту L7 iHOME",
+        from_name: "L7 iHOME — сайт",
+        "Ім’я": name,
+        "Телефон": phone,
+        "Модель": form.model.value || "—",
+        "Коментар": form.message.value.trim() || "—"
+      };
+
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(payload)
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (res.success) {
+            if (window.gtag) window.gtag("event", "generate_lead", { model: form.model.value || "" });
+            showDone();
+          } else { throw new Error(res.message || "fail"); }
+        })
+        .catch(function () {
+          note.textContent = "Не вдалося надіслати. Зателефонуйте нам або спробуйте ще раз.";
+          note.classList.add("err");
+          btn.disabled = false; btn.textContent = "Залишити заявку →";
+        });
+
+      function showDone() { form.hidden = true; done.hidden = false; }
+    });
+  }
+
+  // ---- Google Analytics (GA4) — підключається лише якщо вказано ID ----
+  var gaInited = false;
+  function initAnalytics(id) {
+    if (!id || gaInited || !/^G-/.test(id)) return;
+    gaInited = true;
+    var s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(id);
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag("js", new Date());
+    window.gtag("config", id);
   }
 
   // ---- hero: обертовий подіум 360 (з дизайну "Капсула 360°") ----

@@ -514,9 +514,48 @@ a.model-card { display: block; color: inherit; }
   margin-top: var(--space-6); max-width: 1000px;
 }
 .contact h2 .accent { color: var(--azure-400); }
+.contact h2 { max-width: 560px; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); align-items: start; }
+.contact-sub { margin-top: var(--space-6); font-size: var(--fs-body-lg); line-height: var(--lh-relaxed); color: rgba(255,255,255,0.66); max-width: 440px; }
 .contact-cta { display: flex; flex-wrap: wrap; gap: 18px; margin-top: var(--space-12); }
-.contact-details { display: flex; flex-wrap: wrap; gap: 56px; align-items: baseline; margin-top: var(--space-20); font-family: var(--font-mono); letter-spacing: 0.04em; }
-.contact-details .big { font-size: 26px; color: var(--white); margin-top: var(--space-2); }
+.contact-details { display: flex; flex-wrap: wrap; gap: 56px; align-items: baseline; margin-top: var(--space-12); font-family: var(--font-mono); letter-spacing: 0.04em; }
+.contact-details .big { display: block; font-size: 24px; color: var(--white); margin-top: var(--space-2); }
+a.contact-details .big, .contact-details a.big { transition: color var(--dur-fast) var(--ease-out); }
+.contact-details a.big:hover { color: var(--azure-400); }
+
+/* ---- lead form card ---- */
+.lead-card {
+  background: var(--white); color: var(--text-strong);
+  border-radius: var(--radius-2xl); box-shadow: var(--shadow-lg);
+  padding: var(--space-8);
+}
+.lead-field { display: block; margin-bottom: var(--space-4); }
+.lead-field span {
+  display: block; font-family: var(--font-mono); font-size: var(--fs-label);
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: var(--space-2);
+}
+.lead-field input, .lead-field select, .lead-field textarea {
+  width: 100%; font: inherit; color: var(--text-strong);
+  padding: 12px 14px; border: var(--bw-1) solid var(--border-default);
+  border-radius: var(--radius-md); background: var(--white); appearance: none;
+  transition: border-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+}
+.lead-field textarea { resize: vertical; min-height: 76px; }
+.lead-field input:focus, .lead-field select:focus, .lead-field textarea:focus {
+  outline: none; border-color: var(--azure-400); box-shadow: 0 0 0 3px var(--focus-ring);
+}
+.lead-field input:user-invalid, .lead-field input.invalid { border-color: var(--danger); }
+.lead-submit { width: 100%; margin-top: var(--space-2); }
+.lead-note { margin: var(--space-4) 0 0; font-size: var(--fs-caption); color: var(--text-faint); line-height: 1.45; }
+.lead-note.err { color: var(--danger); }
+.lead-done { text-align: center; padding: var(--space-8) var(--space-4); }
+.lead-done-ic {
+  width: 64px; height: 64px; margin: 0 auto var(--space-5);
+  border-radius: var(--radius-pill); background: var(--brand-tint); color: var(--brand-strong);
+  display: flex; align-items: center; justify-content: center;
+}
+.lead-done h3 { font-weight: var(--fw-bold); font-size: var(--fs-h4); }
+.lead-done p { margin: var(--space-3) 0 0; color: var(--text-muted); }
 
 /* ============================================================
    FOOTER
@@ -535,6 +574,7 @@ a.model-card { display: block; color: inherit; }
   .lineup-grid { grid-template-columns: 1fr 1fr; }
   .spec-slide { grid-template-columns: 1fr; gap: var(--space-8); }
   .spec-visual { min-height: 380px; }
+  .contact-grid { grid-template-columns: 1fr; gap: var(--space-10); }
 }
 
 @media (max-width: 720px) {

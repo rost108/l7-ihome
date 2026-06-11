@@ -157,6 +157,21 @@
           <label class="field"><span>Сайт</span><input type="text" data-k="contact.site"></label>
         </div>
       </div>
+
+      <div class="panel">
+        <h2>Інтеграції</h2>
+        <label class="field"><span>Web3Forms Access Key (куди приходять заявки)</span><input type="text" data-k="settings.web3formsKey" placeholder="напр. 1a2b3c4d-…"></label>
+        <p class="hint" style="margin:-6px 0 16px">
+          Заявки з форми приходитимуть вам на email. Отримати ключ безкоштовно (без реєстрації):
+          <a href="https://web3forms.com/" target="_blank" rel="noopener">web3forms.com</a> → введіть свій email → скопіюйте Access Key сюди.
+          Поки поле порожнє, форма показує підтвердження, але лист не надсилається.
+        </p>
+        <label class="field"><span>Google Analytics ID (необов’язково)</span><input type="text" data-k="settings.gaId" placeholder="G-XXXXXXXXXX"></label>
+        <p class="hint" style="margin:-6px 0 0">
+          Лічильник відвідувачів. Створити: <a href="https://analytics.google.com/" target="_blank" rel="noopener">analytics.google.com</a>
+          → новий ресурс «Web» → скопіюйте Measurement ID (починається з <b>G-</b>). Порожнє поле = аналітика вимкнена.
+        </p>
+      </div>
     </div>
   </div>
 

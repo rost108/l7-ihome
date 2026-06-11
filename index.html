@@ -28,7 +28,7 @@
   <meta name="twitter:image" content="https://rost108.github.io/l7-ihome/assets/capsule-360.jpg">
 
   <link rel="icon" href="assets/logo-mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=6">
 
   <!-- Structured data: організація + каталог -->
   <script type="application/ld+json">
@@ -268,21 +268,52 @@
 
   <!-- ================= CONTACT (slide 06) ================= -->
   <section class="contact on-ink" id="contact">
-    <div class="container">
-      <span class="eyebrow" data-cms="contact.eyebrow">Контакти</span>
-      <h2><span data-cms="contact.title1">Готові створити своє місце, </span><span class="accent" data-cms="contact.title2">яке запам’ятовується назавжди?</span></h2>
-      <div class="contact-cta">
-        <a href="tel:+380939382777" class="btn btn--primary" id="contactTel">Замовити прорахунок →</a>
-        <a href="https://l7ihome.com" class="btn btn--ghost-light">L7IHOME.COM</a>
-      </div>
-      <div class="contact-details">
-        <div>
-          <span class="eyebrow">Телефон</span>
-          <div class="big" data-cms="contact.phone">+380 93 938 2777</div>
+    <div class="container contact-grid">
+      <div class="contact-intro">
+        <span class="eyebrow" data-cms="contact.eyebrow">Контакти</span>
+        <h2><span data-cms="contact.title1">Готові створити своє місце, </span><span class="accent" data-cms="contact.title2">яке запам’ятовується назавжди?</span></h2>
+        <p class="contact-sub">Залиште заявку — інженер передзвонить, прорахує проєкт під ваш бюджет і ділянку.</p>
+        <div class="contact-details">
+          <div>
+            <span class="eyebrow">Телефон</span>
+            <a class="big" href="tel:+380939382777" id="contactTel" data-cms="contact.phone">+380 93 938 2777</a>
+          </div>
+          <div>
+            <span class="eyebrow">Сайт</span>
+            <div class="big" data-cms="contact.site">L7IHOME.COM</div>
+          </div>
         </div>
-        <div>
-          <span class="eyebrow">Сайт</span>
-          <div class="big" data-cms="contact.site">L7IHOME.COM</div>
+      </div>
+
+      <div class="lead-card">
+        <form id="leadForm" novalidate>
+          <label class="lead-field">
+            <span>Ім’я</span>
+            <input type="text" name="name" autocomplete="name" required placeholder="Ваше ім’я">
+          </label>
+          <label class="lead-field">
+            <span>Телефон</span>
+            <input type="tel" name="phone" autocomplete="tel" required placeholder="+380 __ ___ __ __">
+          </label>
+          <label class="lead-field">
+            <span>Модель (необов’язково)</span>
+            <select name="model" id="leadModel">
+              <option value="">Ще не визначився</option>
+            </select>
+          </label>
+          <label class="lead-field">
+            <span>Коментар (необов’язково)</span>
+            <textarea name="message" rows="3" placeholder="Ділянка, бажані терміни, питання…"></textarea>
+          </label>
+          <button type="submit" class="btn btn--primary lead-submit">Залишити заявку →</button>
+          <p class="lead-note" id="leadNote">Натискаючи, ви погоджуєтесь, що з вами зв’яжуться щодо заявки.</p>
+        </form>
+        <div class="lead-done" id="leadDone" hidden>
+          <div class="lead-done-ic">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </div>
+          <h3>Заявку надіслано</h3>
+          <p>Дякуємо! Інженер L7 iHOME зв’яжеться з вами найближчим часом.</p>
         </div>
       </div>
     </div>
@@ -300,6 +331,6 @@
     </div>
   </footer>
 
-  <script src="main.js?v=5"></script>
+  <script src="main.js?v=6"></script>
 </body>
 </html>

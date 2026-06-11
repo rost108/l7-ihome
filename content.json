@@ -156,5 +156,9 @@
     "title2": "яке запам’ятовується назавжди?",
     "phone": "+380 93 938 2777",
     "site": "L7IHOME.COM"
+  },
+  "settings": {
+    "web3formsKey": "",
+    "gaId": ""
   }
 }
