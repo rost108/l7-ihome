@@ -336,21 +336,24 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); color: var(--text-stro
 .hero-copy .lead { margin: var(--space-4) auto 0; max-width: 560px; color: var(--text-muted); }
 .hero-cta { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-top: var(--space-8); justify-content: center; position: relative; z-index: 6; }
 
-/* ---- сцена з подіумом: велика капсула внизу екрана, текст/кнопки над нею ---- */
+/* ---- сцена з подіумом: імерсивна, на весь екран; текст/кнопки поверх ---- */
 .hero-scene {
   position: absolute; inset: 0; z-index: 1;
-  display: flex; align-items: flex-end; justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   overflow: hidden; pointer-events: none;
 }
 .hero-scene .stage {
   position: relative;
-  height: 66%;                  /* капсула + подіум у нижній частині, тіло — нижче кнопок */
-  width: auto;
+  width: min(99vw, calc((100svh - 73px) * 1700 / 980));
   aspect-ratio: 1700 / 980;
-  max-width: 99vw;
+  transform: translateY(6%);
   perspective: 2200px; perspective-origin: 50% 42%;
 }
-.hero-360 .hero-scrim { display: none; }
+/* світлий градієнт під текстом — щоб заголовок і кнопки читалися поверх капсули */
+.hero-360 .hero-scrim {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(180deg, rgba(245,247,249,0.94) 0%, rgba(245,247,249,0.6) 30%, rgba(245,247,249,0) 56%);
+}
 .hero-scene .rig { position: absolute; inset: 0; transform-style: preserve-3d; will-change: transform; }
 
 .podium {
