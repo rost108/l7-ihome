@@ -325,7 +325,7 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); color: var(--text-stro
   background: radial-gradient(140% 120% at 50% 120%, rgba(22,24,29,.10), transparent 55%);
 }
 
-.hero-copy { position: relative; z-index: 6; text-align: center; padding-top: clamp(20px, 4.5vh, 48px); }
+.hero-copy { position: relative; z-index: 6; text-align: center; padding-top: clamp(40px, 7vh, 80px); }
 .hero-copy h1 {
   font-weight: var(--fw-extrabold);
   font-size: clamp(40px, 5.4vw, 64px);
