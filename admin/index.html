@@ -62,6 +62,16 @@
     .hint { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
     .hint a { color: var(--azure-700); text-decoration: underline; }
     #app { display: none; }
+    .stats-total { display: flex; align-items: baseline; gap: 12px; margin-bottom: 18px; }
+    .stats-num { font-size: 44px; font-weight: var(--fw-extrabold); letter-spacing: var(--ls-tight); color: var(--text-strong); font-variant-numeric: tabular-nums; }
+    .stats-cap { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
+    .stats-rows { display: flex; flex-direction: column; gap: 2px; }
+    .stats-row { display: flex; align-items: center; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid var(--border-hairline); }
+    .stats-row:last-child { border-bottom: none; }
+    .stats-row .lbl { font-size: 15px; color: var(--text-body); }
+    .stats-row .bar { flex: 1; height: 6px; margin: 0 16px; background: var(--grey-100); border-radius: 999px; overflow: hidden; }
+    .stats-row .bar i { display: block; height: 100%; background: var(--azure-500); border-radius: 999px; }
+    .stats-row .val { font-family: var(--font-mono); font-size: 15px; font-weight: 500; color: var(--text-strong); font-variant-numeric: tabular-nums; min-width: 48px; text-align: right; }
   </style>
 </head>
 <body>
@@ -83,6 +93,19 @@
 
     <!-- ===== EDITOR ===== -->
     <div id="app">
+      <div class="panel" id="analyticsPanel">
+        <h2 style="display:flex;align-items:center;justify-content:space-between">
+          Аналітика
+          <button class="mini-btn" id="statsRefresh" type="button" style="height:32px">↻ Оновити</button>
+        </h2>
+        <div class="stats-total">
+          <div class="stats-num" id="statTotal">—</div>
+          <div class="stats-cap">переглядів сторінок усього</div>
+        </div>
+        <div id="statsRows" class="stats-rows"></div>
+        <p class="hint" id="statsHint" style="margin-top:14px">Лічильник переглядів (не унікальних відвідувачів). Дані оновлюються в реальному часі.</p>
+      </div>
+
       <div class="panel">
         <h2>Головний екран</h2>
         <label class="field"><span>Бейдж</span><input type="text" data-k="hero.badge"></label>
@@ -357,8 +380,45 @@
       contentSha = j.sha;
       content = JSON.parse(b64decodeText(j.content));
       renderForm();
+      loadAnalytics();
       setStatus("Готово до редагування", "ok");
     });
+  }
+
+  // ---- Аналітика: читання лічильників (keyless, без бекенду) ----
+  var ANALYTICS_NS = "l7ihome-rost108-live";
+  function readCount(key) {
+    return fetch("https://abacus.jasoncameron.dev/get/" + ANALYTICS_NS + "/" + key)
+      .then(function (r) { return r.ok ? r.json() : { value: 0 }; })
+      .then(function (j) { return (j && typeof j.value === "number") ? j.value : 0; })
+      .catch(function () { return 0; });
+  }
+  function loadAnalytics() {
+    var rowsEl = $("#statsRows");
+    var totalEl = $("#statTotal");
+    if (!rowsEl || !content) return;
+    totalEl.textContent = "…";
+    rowsEl.innerHTML = "";
+
+    var pages = [{ key: "home", label: "Головна" }];
+    (content.models.items || []).forEach(function (m) {
+      pages.push({ key: "model-" + (m.slug || "x"), label: m.name });
+    });
+
+    Promise.all([readCount("total")].concat(pages.map(function (p) { return readCount(p.key); })))
+      .then(function (vals) {
+        var total = vals[0];
+        var pageVals = vals.slice(1);
+        totalEl.textContent = total.toLocaleString("uk-UA");
+        var max = Math.max(1, Math.max.apply(null, pageVals.concat([1])));
+        rowsEl.innerHTML = pages.map(function (p, i) {
+          var v = pageVals[i];
+          var pct = Math.round((v / max) * 100);
+          return '<div class="stats-row"><span class="lbl">' + esc(p.label) + '</span>' +
+            '<span class="bar"><i style="width:' + pct + '%"></i></span>' +
+            '<span class="val">' + v.toLocaleString("uk-UA") + "</span></div>";
+        }).join("");
+      });
   }
 
   function save() {
@@ -453,6 +513,7 @@
   });
 
   $("#saveBtn").addEventListener("click", save);
+  $("#statsRefresh").addEventListener("click", loadAnalytics);
   $("#logoutBtn").addEventListener("click", function () {
     localStorage.removeItem("l7_admin_token");
     location.reload();

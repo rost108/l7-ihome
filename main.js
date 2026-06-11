@@ -1,5 +1,14 @@
 // L7 iHOME — marketing site behaviour
 (function () {
+  // ---- visit counter (keyless, без бекенду; цифри видно в адмінці) ----
+  (function () {
+    var NS = "l7ihome-rost108-live";
+    function hit(key) {
+      try { fetch("https://abacus.jasoncameron.dev/hit/" + NS + "/" + key, { keepalive: true }).catch(function () {}); } catch (e) {}
+    }
+    hit("total"); hit("home");
+  })();
+
   // Mobile nav toggle
   var header = document.getElementById("siteHeader");
   var toggle = document.getElementById("navToggle");

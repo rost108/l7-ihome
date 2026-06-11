@@ -195,6 +195,13 @@
       document.getElementById("crumbName").textContent = m.name;
       document.getElementById("pName").textContent = m.name;
 
+      // ---- visit counter (keyless; цифри видно в адмінці) ----
+      (function () {
+        var NS = "l7ihome-rost108-live";
+        function hit(k) { try { fetch("https://abacus.jasoncameron.dev/hit/" + NS + "/" + k, { keepalive: true }).catch(function () {}); } catch (e) {} }
+        hit("total"); hit("model-" + (m.slug || "x"));
+      })();
+
       // ---- SEO: динамічні мета-теги + structured data під модель ----
       (function () {
         var base = location.origin + location.pathname.replace(/[^/]*$/, "");
