@@ -318,6 +318,7 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); color: var(--text-stro
   height: calc(100svh - 73px);
   min-height: 580px;
   overflow: hidden;
+  display: flex; flex-direction: column;
   background: radial-gradient(120% 95% at 50% 34%, #FFFFFF 0%, #F5F7F9 40%, #E7EBEF 74%, #DBE0E6 100%);
 }
 .hero-360::after { /* grain з дизайну */
@@ -325,7 +326,7 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); color: var(--text-stro
   background: radial-gradient(140% 120% at 50% 120%, rgba(22,24,29,.10), transparent 55%);
 }
 
-.hero-copy { position: relative; z-index: 6; text-align: center; padding-top: clamp(20px, 4.5vh, 48px); }
+.hero-copy { position: relative; z-index: 6; flex: 0 0 auto; text-align: center; padding-top: clamp(20px, 4.5vh, 48px); padding-bottom: var(--space-6); }
 .hero-copy h1 {
   font-weight: var(--fw-extrabold);
   font-size: clamp(40px, 5.4vw, 64px);
@@ -336,17 +337,19 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); color: var(--text-stro
 .hero-copy .lead { margin: var(--space-4) auto 0; max-width: 560px; color: var(--text-muted); }
 .hero-cta { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-top: var(--space-8); justify-content: center; position: relative; z-index: 6; }
 
-/* ---- сцена з подіумом: на весь герой, як в оригінальному дизайні ---- */
+/* ---- сцена з подіумом: займає простір, що лишився під текстом (не перекриває) ---- */
 .hero-scene {
-  position: absolute; inset: 0; z-index: 1;
-  display: flex; align-items: center; justify-content: center;
+  position: relative; z-index: 1;
+  flex: 1 1 auto; min-height: 0;
+  display: flex; align-items: flex-end; justify-content: center;
   pointer-events: none;
-  transform: translateY(5.5%);
 }
 .hero-scene .stage {
   position: relative;
-  width: min(99vw, calc((100svh - 73px) * 1700 / 980 * 0.98));
+  height: 100%;
+  width: auto;
   aspect-ratio: 1700 / 980;
+  max-width: 99vw;             /* на вузьких екранах ширина не вилазить за межі */
   perspective: 2200px; perspective-origin: 50% 42%;
 }
 .hero-scene .rig { position: absolute; inset: 0; transform-style: preserve-3d; will-change: transform; }
@@ -611,6 +614,7 @@ a.contact-details .big, .contact-details a.big { transition: color var(--dur-fas
   .hero-contacts .dot { display: none; }
 
   .mainnav, .nav-phone { display: none; }
+  .site-header .btn--primary { display: none; }   /* є бургер + CTA в hero */
   .nav-toggle { display: block; margin-left: auto; }
   .site-header.open .mainnav {
     display: flex; flex-direction: column; gap: var(--space-4);
