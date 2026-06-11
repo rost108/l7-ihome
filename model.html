@@ -18,8 +18,15 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" id="seoTwTitle" content="L7 iHOME — Капсула">
   <meta name="twitter:image" id="seoTwImage" content="https://rost108.github.io/l7-ihome/assets/capsule-t8.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1500">
+  <meta property="og:image:height" content="837">
+  <link rel="alternate" hreflang="uk" id="seoAlt" href="https://rost108.github.io/l7-ihome/model.html">
   <link rel="icon" href="assets/logo-mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="styles.css?v=7">
   <style>
     /* ---- model page ---- */
     .crumbs {
@@ -109,7 +116,7 @@
             <span class="badge badge--ink" id="pCode"></span>
             <span class="badge badge--brand" id="pTag" hidden></span>
           </div>
-          <img id="pImg" src="" alt="">
+          <img id="pImg" src="" alt="" width="1500" height="837" fetchpriority="high" decoding="async">
           <span class="callout callout--glass" id="pCallout1" hidden></span>
           <span class="callout callout--alloy" id="pCallout2" hidden></span>
         </div>
@@ -204,6 +211,21 @@
         set("seoOgImage", "content", imgUrl);
         set("seoTwTitle", "content", "L7 iHOME — " + m.name);
         set("seoTwImage", "content", imgUrl);
+        set("seoAlt", "href", pageUrl);
+
+        var breadcrumb = {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Головна", "item": base },
+            { "@type": "ListItem", "position": 2, "name": "Моделі", "item": base + "#models" },
+            { "@type": "ListItem", "position": 3, "name": m.name, "item": pageUrl }
+          ]
+        };
+        var bc = document.createElement("script");
+        bc.type = "application/ld+json";
+        bc.textContent = JSON.stringify(breadcrumb);
+        document.head.appendChild(bc);
 
         var ld = {
           "@context": "https://schema.org",
@@ -288,7 +310,7 @@
           '<div class="model-figure"><div class="badges">' +
           '<span class="badge badge--ink">' + esc(o.code) + '</span>' +
           (o.tag ? '<span class="badge badge--brand">' + esc(o.tag) + '</span>' : "") +
-          '</div><img src="' + escAttr(o.img) + '" alt="' + escAttr(o.name) + '"></div>' +
+          '</div><img loading="lazy" decoding="async" src="' + escAttr(o.img) + '" alt="' + escAttr(o.name) + '"></div>' +
           '<div class="model-body"><div class="name">' + esc(o.name) + '</div>' +
           '<div class="meta">' + esc(o.meta) + "</div></div></a>";
       }).join("");

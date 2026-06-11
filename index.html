@@ -19,6 +19,10 @@
   <meta property="og:description" content="Преміальні капсульні будинки під ключ — для приватного життя, глемпінгу та бізнесу. Готовність від 3 до 6 тижнів.">
   <meta property="og:url" content="https://rost108.github.io/l7-ihome/">
   <meta property="og:image" content="https://rost108.github.io/l7-ihome/assets/capsule-360.jpg">
+  <meta property="og:image:secure_url" content="https://rost108.github.io/l7-ihome/assets/capsule-360.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1700">
+  <meta property="og:image:height" content="949">
   <meta property="og:image:alt" content="Капсульний будинок L7 iHOME">
 
   <!-- Twitter -->
@@ -27,8 +31,22 @@
   <meta name="twitter:description" content="Преміальні капсульні будинки під ключ — для приватного життя, глемпінгу та бізнесу.">
   <meta name="twitter:image" content="https://rost108.github.io/l7-ihome/assets/capsule-360.jpg">
 
+  <!-- hreflang -->
+  <link rel="alternate" hreflang="uk" href="https://rost108.github.io/l7-ihome/">
+  <link rel="alternate" hreflang="x-default" href="https://rost108.github.io/l7-ihome/">
+
+  <!-- Icons / PWA -->
   <link rel="icon" href="assets/logo-mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- Performance: preload LCP image + critical fonts -->
+  <link rel="preload" as="image" href="assets/capsule-360.jpg" fetchpriority="high">
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/manrope-cyrillic.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/manrope-latin.woff2" crossorigin>
+
+  <link rel="stylesheet" href="styles.css?v=7">
 
   <!-- Structured data: організація + каталог -->
   <script type="application/ld+json">
@@ -61,6 +79,15 @@
       { "@type": "ListItem", "position": 2, "name": "Капсула T6", "url": "https://rost108.github.io/l7-ihome/model.html?id=t6" },
       { "@type": "ListItem", "position": 3, "name": "Капсула P19", "url": "https://rost108.github.io/l7-ihome/model.html?id=p19" }
     ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "L7 iHOME",
+    "url": "https://rost108.github.io/l7-ihome/",
+    "inLanguage": "uk"
   }
   </script>
 </head>
@@ -107,7 +134,7 @@
           <div class="podium" id="heroPodium"></div>
           <div class="cap-shadow"></div>
           <div class="cap">
-            <img class="frame" id="heroCapImg" src="assets/capsule-360.jpg" alt="Капсульний будинок L7" data-cms-img="hero.img">
+            <img class="frame" id="heroCapImg" src="assets/capsule-360.jpg" width="1700" height="949" fetchpriority="high" decoding="async" alt="Капсульний будинок L7 iHOME на студійному подіумі" data-cms-img="hero.img">
           </div>
         </div>
       </div>
@@ -135,7 +162,7 @@
               <span class="badge badge--ink">L7-T8</span>
               <span class="badge badge--brand">Хіт</span>
             </div>
-            <img src="assets/capsule-t8.jpg" alt="Капсула L7-T8">
+            <img src="assets/capsule-t8.jpg" width="1500" height="837" loading="lazy" decoding="async" alt="Капсула L7-T8 — капсульний будинок 37.95 м²">
           </div>
           <div class="model-body">
             <div class="name">Капсула T8</div>
@@ -147,7 +174,7 @@
             <div class="badges">
               <span class="badge badge--ink">L7-T6</span>
             </div>
-            <img src="assets/capsule-t6.jpg" alt="Капсула L7-T6">
+            <img src="assets/capsule-t6.jpg" width="1500" height="838" loading="lazy" decoding="async" alt="Капсула L7-T6 — капсульний будинок 28.05 м²">
           </div>
           <div class="model-body">
             <div class="name">Капсула T6</div>
@@ -160,7 +187,7 @@
               <span class="badge badge--ink">L7-P19</span>
               <span class="badge badge--brand">Компакт</span>
             </div>
-            <img src="assets/capsule-p19.jpg" alt="Капсула L7-P19">
+            <img src="assets/capsule-p19.jpg" width="1500" height="838" loading="lazy" decoding="async" alt="Капсула L7-P19 — компактний капсульний будинок 24.36 м²">
           </div>
           <div class="model-body">
             <div class="name">Капсула P19</div>
@@ -188,7 +215,7 @@
               <span class="badge badge--ink">L7-T8</span>
               <span class="badge badge--brand">Хіт продажів</span>
             </div>
-            <img src="assets/capsule-t8.jpg" alt="Капсула L7 — характеристики">
+            <img src="assets/capsule-t8.jpg" width="1500" height="837" loading="lazy" decoding="async" alt="Капсула L7-T8 — технічні характеристики">
             <span class="callout callout--glass">Подвійне ізоляційне скло</span>
             <span class="callout callout--alloy">Алюмінієвий сплав + фторвуглець</span>
           </div>
@@ -221,7 +248,7 @@
 
   <!-- ================= STATEMENT (slide 04) ================= -->
   <section class="statement on-ink">
-    <img src="assets/statement-photo.jpg" alt="Капсульний будинок L7 у природі" data-cms-img="statement.img">
+    <img src="assets/statement-photo.jpg" width="1195" height="1600" loading="lazy" decoding="async" alt="Капсульний будинок L7 iHOME серед природи" data-cms-img="statement.img">
     <div class="container">
       <span class="eyebrow" data-cms="statement.eyebrow">Швидко та красиво</span>
       <h2 data-cms="statement.text">Є місця, які запам’ятовуються назавжди. Ми знаємо, як їх створити.</h2>
@@ -331,6 +358,6 @@
     </div>
   </footer>
 
-  <script src="main.js?v=6"></script>
+  <script src="main.js?v=7"></script>
 </body>
 </html>

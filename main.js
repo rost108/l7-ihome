@@ -63,7 +63,7 @@
           '<div class="model-figure"><div class="badges">' +
           '<span class="badge badge--ink">' + esc(m.code) + '</span>' +
           (m.tag ? '<span class="badge badge--brand">' + esc(m.tag) + '</span>' : '') +
-          '</div><img src="' + esc(m.img) + '" alt="' + esc(m.name) + '"></div>' +
+          '</div><img loading="lazy" decoding="async" src="' + esc(m.img) + '" alt="' + esc(m.name) + '"></div>' +
           '<div class="model-body"><div class="name">' + esc(m.name) + '</div>' +
           '<div class="meta">' + esc(m.meta) + '</div></div></a>';
       }).join("");
@@ -78,7 +78,7 @@
           '<div class="spec-visual">' +
           '<div class="badges"><span class="badge badge--ink">' + esc(m.code) + "</span>" +
           (m.tag ? '<span class="badge badge--brand">' + esc(m.tag) + "</span>" : "") +
-          '</div><img src="' + esc(m.img) + '" alt="' + esc(m.name) + '" loading="lazy">' +
+          '</div><img loading="lazy" decoding="async" src="' + esc(m.img) + '" alt="' + esc(m.name) + '">' +
           (m.callout1 ? '<span class="callout callout--glass">' + esc(m.callout1) + "</span>" : "") +
           (m.callout2 ? '<span class="callout callout--alloy">' + esc(m.callout2) + "</span>" : "") +
           "</div>" +
