@@ -46,7 +46,8 @@
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/manrope-cyrillic.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/manrope-latin.woff2" crossorigin>
 
-  <link rel="stylesheet" href="styles.css?v=7">
+  <link rel="stylesheet" href="styles.css?v=8">
+  <noscript><style>[data-reveal]{opacity:1!important;transform:none!important}</style></noscript>
 
   <!-- Structured data: організація + каталог -->
   <script type="application/ld+json">
@@ -153,8 +154,8 @@
   <!-- ================= LINEUP (slide 02 — Модельний ряд) ================= -->
   <section class="section-pad" id="models">
     <div class="container">
-      <span class="eyebrow" data-cms="models.eyebrow">Модельний ряд</span>
-      <h2 class="section-title" data-cms="models.title">Три формати під будь-яке завдання</h2>
+      <span class="eyebrow" data-reveal data-cms="models.eyebrow">Модельний ряд</span>
+      <h2 class="section-title" data-reveal style="--reveal-delay:.06s" data-cms="models.title">Три формати під будь-яке завдання</h2>
       <div class="lineup-grid" id="modelsGrid">
         <a class="model-card" href="model.html?id=t8">
           <div class="model-figure">
@@ -201,14 +202,14 @@
   <!-- ================= SPEC (slide 03 — Характеристики, слайдер моделей) ================= -->
   <section class="spec-section section-pad" id="spec">
     <div class="container">
-      <div class="spec-head">
+      <div class="spec-head" data-reveal>
         <span class="eyebrow" data-cms="spec.eyebrow">Характеристики</span>
         <div class="spec-nav">
           <button type="button" id="specPrev" aria-label="Попередня модель">&#8592;</button>
           <button type="button" id="specNext" aria-label="Наступна модель">&#8594;</button>
         </div>
       </div>
-      <div class="spec-slider" id="specSlider">
+      <div class="spec-slider" id="specSlider" data-reveal style="--reveal-delay:.06s">
         <div class="spec-slide">
           <div class="spec-visual">
             <div class="badges">
@@ -250,16 +251,16 @@
   <section class="statement on-ink">
     <img src="assets/statement-photo.jpg" width="1195" height="1600" loading="lazy" decoding="async" alt="Капсульний будинок L7 iHOME серед природи" data-cms-img="statement.img">
     <div class="container">
-      <span class="eyebrow" data-cms="statement.eyebrow">Швидко та красиво</span>
-      <h2 data-cms="statement.text">Є місця, які запам’ятовуються назавжди. Ми знаємо, як їх створити.</h2>
+      <span class="eyebrow" data-reveal data-cms="statement.eyebrow">Швидко та красиво</span>
+      <h2 data-reveal style="--reveal-delay:.06s" data-cms="statement.text">Є місця, які запам’ятовуються назавжди. Ми знаємо, як їх створити.</h2>
     </div>
   </section>
 
   <!-- ================= BUSINESS (slide 05 — Бізнес-вигода) ================= -->
   <section class="business section-pad" id="business">
     <div class="container">
-      <span class="eyebrow" data-cms="business.eyebrow">Бізнес-вигода</span>
-      <h2 class="section-title" data-cms="business.title">Чому капсула L7 окупається</h2>
+      <span class="eyebrow" data-reveal data-cms="business.eyebrow">Бізнес-вигода</span>
+      <h2 class="section-title" data-reveal style="--reveal-delay:.06s" data-cms="business.title">Чому капсула L7 окупається</h2>
       <div class="adv-grid" id="advGrid">
         <div class="adv">
           <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3Z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15Z"/></svg></div>
@@ -296,7 +297,7 @@
   <!-- ================= CONTACT (slide 06) ================= -->
   <section class="contact on-ink" id="contact">
     <div class="container contact-grid">
-      <div class="contact-intro">
+      <div class="contact-intro" data-reveal>
         <span class="eyebrow" data-cms="contact.eyebrow">Контакти</span>
         <h2><span data-cms="contact.title1">Готові створити своє місце, </span><span class="accent" data-cms="contact.title2">яке запам’ятовується назавжди?</span></h2>
         <p class="contact-sub">Залиште заявку — інженер передзвонить, прорахує проєкт під ваш бюджет і ділянку.</p>
@@ -312,7 +313,7 @@
         </div>
       </div>
 
-      <div class="lead-card">
+      <div class="lead-card" data-reveal style="--reveal-delay:.08s">
         <form id="leadForm" novalidate>
           <label class="lead-field">
             <span>Ім’я</span>
@@ -358,6 +359,6 @@
     </div>
   </footer>
 
-  <script src="main.js?v=7"></script>
+  <script src="main.js?v=8"></script>
 </body>
 </html>

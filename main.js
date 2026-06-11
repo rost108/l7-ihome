@@ -67,8 +67,8 @@
     text("models.title", c.models.title);
     var grid = document.getElementById("modelsGrid");
     if (grid && c.models.items) {
-      grid.innerHTML = c.models.items.map(function (m) {
-        return '<a class="model-card" href="model.html?id=' + encodeURIComponent(m.slug || "") + '">' +
+      grid.innerHTML = c.models.items.map(function (m, i) {
+        return '<a class="model-card" data-reveal style="--reveal-delay:' + (i * 80) + 'ms" href="model.html?id=' + encodeURIComponent(m.slug || "") + '">' +
           '<div class="model-figure"><div class="badges">' +
           '<span class="badge badge--ink">' + esc(m.code) + '</span>' +
           (m.tag ? '<span class="badge badge--brand">' + esc(m.tag) + '</span>' : '') +
@@ -118,8 +118,8 @@
     text("business.title", c.business.title);
     var adv = document.getElementById("advGrid");
     if (adv && c.business.items) {
-      adv.innerHTML = c.business.items.map(function (b) {
-        return '<div class="adv"><div class="ic">' + (ICONS[b.icon] || ICONS.spark) + "</div>" +
+      adv.innerHTML = c.business.items.map(function (b, i) {
+        return '<div class="adv" data-reveal style="--reveal-delay:' + (i * 80) + 'ms"><div class="ic">' + (ICONS[b.icon] || ICONS.spark) + "</div>" +
           "<div><h3>" + esc(b.title) + "</h3><p>" + esc(b.text) + "</p></div></div>";
       }).join("");
     }
@@ -149,7 +149,36 @@
 
     initLeadForm((c.settings && c.settings.web3formsKey) || "");
     initAnalytics((c.settings && c.settings.gaId) || "");
+    initReveals();
   }
+
+  // ---- scroll-reveal: плавна поява елементів [data-reveal] ----
+  function initReveals() {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var els = document.querySelectorAll("[data-reveal]:not(.in)");
+    if (!("IntersectionObserver" in window)) {
+      els.forEach(function (e) { e.classList.add("in"); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+    els.forEach(function (e) { io.observe(e); });
+  }
+
+  // ---- subtle header elevation on scroll ----
+  (function () {
+    var hdr = document.getElementById("siteHeader");
+    if (!hdr) return;
+    function onScroll() { hdr.classList.toggle("scrolled", window.scrollY > 8); }
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  })();
+
+  // reveal static elements present at load (section headers etc.)
+  initReveals();
 
   // ---- lead form → Web3Forms (заявки приходять на email) ----
   var leadInited = false;

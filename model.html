@@ -26,7 +26,8 @@
   <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
-  <link rel="stylesheet" href="styles.css?v=7">
+  <link rel="stylesheet" href="styles.css?v=8">
+  <noscript><style>[data-reveal]{opacity:1!important;transform:none!important}</style></noscript>
   <style>
     /* ---- model page ---- */
     .crumbs {
@@ -149,8 +150,8 @@
   <!-- ================= OTHER MODELS ================= -->
   <section class="other-models section-pad">
     <div class="container">
-      <span class="eyebrow">Модельний ряд</span>
-      <h2 class="section-title">Інші моделі</h2>
+      <span class="eyebrow" data-reveal>Модельний ряд</span>
+      <h2 class="section-title" data-reveal style="--reveal-delay:.06s">Інші моделі</h2>
       <div class="lineup-grid" id="otherModels"></div>
     </div>
   </section>
@@ -312,8 +313,8 @@
 
       // other models
       var others = items.filter(function (x) { return x !== m; });
-      document.getElementById("otherModels").innerHTML = others.map(function (o) {
-        return '<a class="model-card" href="model.html?id=' + encodeURIComponent(o.slug) + '" style="display:block">' +
+      document.getElementById("otherModels").innerHTML = others.map(function (o, i) {
+        return '<a class="model-card" data-reveal style="display:block;--reveal-delay:' + (i * 80) + 'ms" href="model.html?id=' + encodeURIComponent(o.slug) + '">' +
           '<div class="model-figure"><div class="badges">' +
           '<span class="badge badge--ink">' + esc(o.code) + '</span>' +
           (o.tag ? '<span class="badge badge--brand">' + esc(o.tag) + '</span>' : "") +
@@ -321,9 +322,30 @@
           '<div class="model-body"><div class="name">' + esc(o.name) + '</div>' +
           '<div class="meta">' + esc(o.meta) + "</div></div></a>";
       }).join("");
+
+      initReveals();
     });
 
   function escAttr(s) { return esc(s).replace(/'/g, "&#39;"); }
+
+  function initReveals() {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var els = document.querySelectorAll("[data-reveal]:not(.in)");
+    if (!("IntersectionObserver" in window)) { els.forEach(function (e) { e.classList.add("in"); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+    els.forEach(function (e) { io.observe(e); });
+  }
+  initReveals();
+
+  (function () {
+    var hdr = document.getElementById("siteHeader");
+    if (!hdr) return;
+    function onScroll() { hdr.classList.toggle("scrolled", window.scrollY > 8); }
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  })();
 })();
 </script>
 </body>
