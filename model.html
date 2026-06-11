@@ -4,7 +4,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>L7 iHOME — Капсула</title>
-  <meta name="description" content="Капсульний будинок L7 iHOME — характеристики, фото, прорахунок під ключ.">
+  <meta name="description" id="seoDesc" content="Капсульний будинок L7 iHOME — характеристики, фото, прорахунок під ключ.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#4AA0F5">
+  <link rel="canonical" id="seoCanonical" href="https://rost108.github.io/l7-ihome/model.html">
+  <meta property="og:type" content="product">
+  <meta property="og:site_name" content="L7 iHOME">
+  <meta property="og:locale" content="uk_UA">
+  <meta property="og:title" id="seoOgTitle" content="L7 iHOME — Капсула">
+  <meta property="og:description" id="seoOgDesc" content="Капсульний будинок L7 iHOME — характеристики, фото, прорахунок під ключ.">
+  <meta property="og:url" id="seoOgUrl" content="https://rost108.github.io/l7-ihome/model.html">
+  <meta property="og:image" id="seoOgImage" content="https://rost108.github.io/l7-ihome/assets/capsule-t8.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" id="seoTwTitle" content="L7 iHOME — Капсула">
+  <meta name="twitter:image" id="seoTwImage" content="https://rost108.github.io/l7-ihome/assets/capsule-t8.jpg">
   <link rel="icon" href="assets/logo-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css?v=5">
   <style>
@@ -171,9 +184,53 @@
       var m = items.filter(function (x) { return x.slug === slug; })[0] || items[0];
       if (!m) return;
 
-      document.title = "L7 iHOME — " + m.name;
+      document.title = "L7 iHOME — " + m.name + " | капсульний будинок під ключ";
       document.getElementById("crumbName").textContent = m.name;
       document.getElementById("pName").textContent = m.name;
+
+      // ---- SEO: динамічні мета-теги + structured data під модель ----
+      (function () {
+        var base = location.origin + location.pathname.replace(/[^/]*$/, "");
+        var pageUrl = base + "model.html?id=" + encodeURIComponent(m.slug || "");
+        var imgUrl = base + (m.img || "");
+        var area = (m.stat1Value ? m.stat1Value + " " + (m.stat1Unit || "м²") + ", " : "");
+        var desc = m.desc || (m.name + " — капсульний будинок L7 iHOME під ключ. " + area + "Готовність від 3 до 6 тижнів.");
+        function set(id, attr, val) { var el = document.getElementById(id); if (el) el.setAttribute(attr, val); }
+        set("seoDesc", "content", desc);
+        set("seoCanonical", "href", pageUrl);
+        set("seoOgTitle", "content", "L7 iHOME — " + m.name);
+        set("seoOgDesc", "content", desc);
+        set("seoOgUrl", "content", pageUrl);
+        set("seoOgImage", "content", imgUrl);
+        set("seoTwTitle", "content", "L7 iHOME — " + m.name);
+        set("seoTwImage", "content", imgUrl);
+
+        var ld = {
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "name": m.name,
+          "sku": m.code,
+          "image": imgUrl,
+          "description": desc,
+          "category": "Капсульні будинки",
+          "brand": { "@type": "Brand", "name": "L7 iHOME" },
+          "manufacturer": { "@type": "Organization", "name": "L7 iHOME" },
+          "additionalProperty": (m.rows || []).map(function (r) {
+            return { "@type": "PropertyValue", "name": r.k, "value": (r.v || "") + (r.unit ? " " + r.unit : "") };
+          }),
+          "offers": {
+            "@type": "Offer",
+            "availability": "https://schema.org/InStock",
+            "priceCurrency": "UAH",
+            "url": pageUrl,
+            "seller": { "@type": "Organization", "name": "L7 iHOME" }
+          }
+        };
+        var s = document.createElement("script");
+        s.type = "application/ld+json";
+        s.textContent = JSON.stringify(ld);
+        document.head.appendChild(s);
+      })();
       document.getElementById("pCode").textContent = m.code;
       document.getElementById("pImg").src = m.img;
       document.getElementById("pImg").alt = m.name;
