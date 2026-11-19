@@ -290,7 +290,7 @@
         g.hidden = false;
         g.innerHTML = photos.map(function (p, i) {
           return '<button type="button" data-p="' + escAttr(p) + '"' + (i === 0 ? ' class="active"' : "") + '>' +
-            '<img src="' + escAttr(p) + '" alt="" loading="lazy"></button>';
+            '<img src="' + escAttr(p) + '" alt="' + escAttr(m.name + ' — вигляд ' + (i + 1)) + '" loading="lazy" decoding="async"></button>';
         }).join("");
         g.addEventListener("click", function (e) {
           var btn = e.target.closest("button[data-p]");

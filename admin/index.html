@@ -374,8 +374,25 @@
       });
   }
 
+  var isLocalhost = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+
   function loadContent() {
     setStatus("Завантаження…");
+    if (isLocalhost) {
+      // локальний режим: читаємо content.json з сервера без GitHub API
+      return fetch("../content.json?_=" + Date.now())
+        .then(function (r) {
+          if (!r.ok) throw new Error("Не знайдено content.json: " + r.status);
+          return r.json();
+        })
+        .then(function (j) {
+          contentSha = null;
+          content = j;
+          renderForm();
+          loadAnalytics();
+          setStatus("Локальний режим — збереження в GitHub недоступне", "ok");
+        });
+    }
     return ghGet("content.json").then(function (j) {
       contentSha = j.sha;
       content = JSON.parse(b64decodeText(j.content));

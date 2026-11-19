@@ -38,7 +38,7 @@
           { "k": "Каркас", "v": "оцинкована сталь", "unit": "" },
           { "k": "Вага", "v": "6 тонн", "unit": "" }
         ],
-        "gallery": []
+        "gallery": ["assets/renders/t8-01.webp", "assets/renders/t8-02.webp", "assets/renders/t8-03.webp", "assets/renders/t8-04.webp", "assets/renders/t8-05.webp", "assets/renders/t8-06.webp"]
       },
       {
         "code": "L7-T6",
@@ -56,7 +56,7 @@
         "callout1": "Подвійне ізоляційне скло",
         "callout2": "Алюмінієвий сплав + фторвуглець",
         "rows": [],
-        "gallery": []
+        "gallery": ["assets/renders/t6-01.webp", "assets/renders/t6-02.webp", "assets/renders/t6-03.webp", "assets/renders/t6-04.webp", "assets/renders/t6-05.webp", "assets/renders/t6-06.webp"]
       },
       {
         "code": "L7-P19",
@@ -74,7 +74,7 @@
         "callout1": "Подвійне ізоляційне скло",
         "callout2": "Алюмінієвий сплав + фторвуглець",
         "rows": [],
-        "gallery": []
+        "gallery": ["assets/renders/p19-01.webp", "assets/renders/p19-02.webp", "assets/renders/p19-03.webp", "assets/renders/p19-04.webp", "assets/renders/p19-05.webp", "assets/renders/p19-06.webp"]
       }
     ]
   },
