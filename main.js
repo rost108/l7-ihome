@@ -68,7 +68,7 @@
     var grid = document.getElementById("modelsGrid");
     if (grid && c.models.items) {
       grid.innerHTML = c.models.items.map(function (m, i) {
-        return '<a class="model-card" data-reveal style="--reveal-delay:' + (i * 80) + 'ms" href="model.html?id=' + encodeURIComponent(m.slug || "") + '">' +
+        return '<a class="model-card" data-reveal style="--reveal-delay:' + (i * 80) + 'ms" href="' + encodeURIComponent(m.slug || "") + '/">' +
           '<div class="model-figure"><div class="badges">' +
           '<span class="badge badge--ink">' + esc(m.code) + '</span>' +
           (m.tag ? '<span class="badge badge--brand">' + esc(m.tag) + '</span>' : '') +
@@ -102,7 +102,7 @@
             return '<div class="spec-row"><span class="k">' + esc(r.k) + '</span>' +
               '<span class="v">' + esc(r.v) + (r.unit ? "<small>" + esc(r.unit) + "</small>" : "") + "</span></div>";
           }).join("") + "</div>" +
-          '<a class="btn btn--ghost btn--sm spec-more" href="model.html?id=' + encodeURIComponent(m.slug || "") + '">Детальніше про ' + esc(m.name) + " →</a>" +
+          '<a class="btn btn--ghost btn--sm spec-more" href="' + encodeURIComponent(m.slug || "") + '/">Детальніше про ' + esc(m.name) + " →</a>" +
           "</div></div>";
       }).join("");
       initSpecSlider(c.models.items.length);

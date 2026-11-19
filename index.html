@@ -42,11 +42,11 @@
   <link rel="manifest" href="site.webmanifest">
 
   <!-- Performance: preload LCP image + critical fonts -->
-  <link rel="preload" as="image" href="assets/capsule-360.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/capsule-360.webp" type="image/webp" fetchpriority="high">
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/manrope-cyrillic.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/manrope-latin.woff2" crossorigin>
 
-  <link rel="stylesheet" href="styles.css?v=14">
+  <link rel="stylesheet" href="styles.css?v=15">
   <noscript><style>[data-reveal]{opacity:1!important;transform:none!important}</style></noscript>
 
   <!-- Structured data: організація + каталог -->
@@ -76,9 +76,9 @@
     "@type": "ItemList",
     "name": "Модельний ряд L7 iHOME",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Капсула T8", "url": "https://rost108.github.io/l7-ihome/model.html?id=t8" },
-      { "@type": "ListItem", "position": 2, "name": "Капсула T6", "url": "https://rost108.github.io/l7-ihome/model.html?id=t6" },
-      { "@type": "ListItem", "position": 3, "name": "Капсула P19", "url": "https://rost108.github.io/l7-ihome/model.html?id=p19" }
+      { "@type": "ListItem", "position": 1, "name": "Капсула T8", "url": "https://rost108.github.io/l7-ihome/t8/" },
+      { "@type": "ListItem", "position": 2, "name": "Капсула T6", "url": "https://rost108.github.io/l7-ihome/t6/" },
+      { "@type": "ListItem", "position": 3, "name": "Капсула P19", "url": "https://rost108.github.io/l7-ihome/p19/" }
     ]
   }
   </script>
@@ -97,7 +97,7 @@
     "@type": "FAQPage",
     "mainEntity": [
       { "@type": "Question", "name": "Скільки часу займає виготовлення капсульного будинку?", "acceptedAnswer": { "@type": "Answer", "text": "Від 3 до 6 тижнів від замовлення до відкриття." } },
-      { "@type": "Question", "name": "Які моделі капсул є в лінійці?", "acceptedAnswer": { "@type": "Answer", "text": "Три формати: L7-T8 (37.95 м² корисної площі, 4–6 гостей), L7-T6 (28.05 м², 4–6 гостей) і компактна L7-P19 (24.36 м², 1–2 гостей)." } },
+      { "@type": "Question", "name": "Які моделі капсул є в лінійці?", "acceptedAnswer": { "@type": "Answer", "text": "Три формати: L7-T8 (37.95 м² корисної площі, 4–6 гостей), L7-T6 (28.05 м², 4–6 гостей) і компактна L7-P19 (24.36 м², 1–2 гості)." } },
       { "@type": "Question", "name": "З чого зроблена капсула?", "acceptedAnswer": { "@type": "Answer", "text": "Каркас — з оцинкованої сталі. Обшивка — з алюмінієвого сплаву з фторвуглецевим покриттям, теплоізоляція — поліуретан, скління — подвійне ізоляційне скло. Підлога — вологостійка фіброцементна плита й дерев'яне покриття." } },
       { "@type": "Question", "name": "Чи доставляєте й монтуєте капсулу?", "acceptedAnswer": { "@type": "Answer", "text": "Так, є можливість повного сервісного супроводу: доставка та монтаж." } },
       { "@type": "Question", "name": "Що з гарантією?", "acceptedAnswer": { "@type": "Answer", "text": "При придбанні капсули ви отримуєте гарантію. Якщо деталь або техніка вийде з ладу, ми замінимо її в короткий термін." } },
@@ -143,8 +143,7 @@
   <section class="hero hero-360">
     <div class="hero-scrim"></div>
     <div class="container hero-copy">
-      <span class="hero-badge"><span class="badge badge--outline" data-cms="hero.badge">Український виробник капсульних домів</span></span>
-      <h1><span data-cms="hero.title1">Простір майбутнього.</span><br><span class="accent" data-cms="hero.title2">Вже сьогодні.</span></h1>
+      <h1><span class="hero-badge"><span class="badge badge--outline" data-cms="hero.badge">Український виробник капсульних домів</span></span><span data-cms="hero.title1">Простір майбутнього.</span><br><span class="accent" data-cms="hero.title2">Вже сьогодні.</span></h1>
       <p class="lead" data-cms="hero.lead">Преміальні капсульні будинки під ключ — для приватного життя, глемпінгу та бізнесу.</p>
       <div class="hero-cta">
         <a href="#contact" class="btn btn--primary">Замовити прорахунок →</a>
@@ -158,7 +157,7 @@
           <div class="podium" id="heroPodium"></div>
           <div class="cap-shadow"></div>
           <div class="cap">
-            <img class="frame" id="heroCapImg" src="assets/capsule-360.jpg" width="1700" height="949" fetchpriority="high" decoding="async" alt="Капсульний будинок L7 iHOME на студійному подіумі" data-cms-img="hero.img">
+            <img class="frame" id="heroCapImg" src="assets/capsule-360.webp" width="1700" height="949" fetchpriority="high" decoding="async" alt="Капсульний будинок L7 iHOME на студійному подіумі" data-cms-img="hero.img">
           </div>
         </div>
       </div>
@@ -180,7 +179,7 @@
       <span class="eyebrow" data-reveal data-cms="models.eyebrow">Модельний ряд</span>
       <h2 class="section-title" data-reveal style="--reveal-delay:.06s" data-cms="models.title">Три формати під будь-яке завдання</h2>
       <div class="lineup-grid" id="modelsGrid">
-        <a class="model-card" href="model.html?id=t8">
+        <a class="model-card" href="t8/">
           <div class="model-figure">
             <div class="badges">
               <span class="badge badge--ink">L7-T8</span>
@@ -193,7 +192,7 @@
             <div class="meta">37.95 М² · 4–6 гостей</div>
           </div>
         </a>
-        <a class="model-card" href="model.html?id=t6">
+        <a class="model-card" href="t6/">
           <div class="model-figure">
             <div class="badges">
               <span class="badge badge--ink">L7-T6</span>
@@ -205,7 +204,7 @@
             <div class="meta">28.05 М² · 4–6 гостей</div>
           </div>
         </a>
-        <a class="model-card" href="model.html?id=p19">
+        <a class="model-card" href="p19/">
           <div class="model-figure">
             <div class="badges">
               <span class="badge badge--ink">L7-P19</span>
@@ -215,7 +214,7 @@
           </div>
           <div class="model-body">
             <div class="name">Капсула P19</div>
-            <div class="meta">24.36 М² · 1–2 гостей</div>
+            <div class="meta">24.36 М² · 1–2 гості</div>
           </div>
         </a>
       </div>
@@ -262,7 +261,7 @@
               <div class="spec-row"><span class="k">Каркас</span><span class="v">оцинкована сталь</span></div>
               <div class="spec-row"><span class="k">Вага</span><span class="v">6 тонн</span></div>
             </div>
-            <a class="btn btn--ghost btn--sm spec-more" href="model.html?id=t8">Детальніше про Капсула T8 →</a>
+            <a class="btn btn--ghost btn--sm spec-more" href="t8/">Детальніше про Капсула T8 →</a>
           </div>
         </div>
       </div>
@@ -314,7 +313,7 @@
 
   <!-- ================= STATEMENT (slide 04) ================= -->
   <section class="statement on-ink">
-    <img src="assets/statement-photo.jpg" width="1195" height="1600" loading="lazy" decoding="async" alt="Капсульний будинок L7 iHOME серед природи" data-cms-img="statement.img">
+    <img src="assets/statement-photo.webp" width="1195" height="1600" loading="lazy" decoding="async" alt="Капсульний будинок L7 iHOME серед природи" data-cms-img="statement.img">
     <div class="container">
       <span class="eyebrow" data-reveal data-cms="statement.eyebrow">Швидко та красиво</span>
       <h2 data-reveal style="--reveal-delay:.06s" data-cms="statement.text">Є місця, які запам’ятовуються назавжди. Ми знаємо, як їх створити.</h2>
@@ -366,8 +365,7 @@
       <h2 class="section-title" id="turnkeyTitle" data-reveal style="--reveal-delay:.06s">Готельна капсула під ключ</h2>
       <div class="tk-grid">
         <article class="tk tk--lead" data-reveal>
-          <span class="tk-num">3–6</span>
-          <h3>тижнів на виготовлення</h3>
+          <h3><span class="tk-num">3–6</span> тижнів на виготовлення</h3>
           <p>Від замовлення до відкриття — без тривалого будівництва на ділянці.</p>
         </article>
         <article class="tk" data-reveal style="--reveal-delay:.04s">
@@ -405,14 +403,14 @@
       <h2 class="section-title" id="placesTitle" data-reveal style="--reveal-delay:.06s">Гори, ліс, вода, узбережжя</h2>
       <p class="lead" data-reveal style="--reveal-delay:.1s">Капсула стає на підготовлену основу: дерев'яну терасу, понтон чи майданчик у горах.</p>
       <div class="places-grid" data-reveal style="--reveal-delay:.12s">
-        <figure class="pl pl--wide"><img src="assets/places/place-lake-float.jpg" width="1400" height="889" loading="lazy" decoding="async" alt="Капсульний будинок L7 iHOME на понтоні на гірському озері"><figcaption>На воді</figcaption></figure>
-        <figure class="pl pl--tall"><img src="assets/places/place-mountain-deck.jpg" width="790" height="1013" loading="lazy" decoding="async" alt="Капсула L7-P19 на дерев'яній терасі серед гір"><figcaption>У горах</figcaption></figure>
-        <figure class="pl"><img src="assets/places/place-forest-deck.jpg" width="790" height="665" loading="lazy" decoding="async" alt="Дві капсули L7 iHOME на настилі біля лісового озера"><figcaption>Біля озера</figcaption></figure>
-        <figure class="pl"><img src="assets/places/place-family.jpg" width="790" height="665" loading="lazy" decoding="async" alt="Родина біля капсульного будинку L7-T8 на терасі в Карпатах"><figcaption>Для родини</figcaption></figure>
-        <figure class="pl pl--wide"><img src="assets/places/place-beach.jpg" width="1400" height="584" loading="lazy" decoding="async" alt="Капсульний глемпінг L7 iHOME на морському узбережжі"><figcaption>Глемпінг на узбережжі</figcaption></figure>
-        <figure class="pl"><img src="assets/places/place-forest-lake.jpg" width="1231" height="528" loading="lazy" decoding="async" alt="Капсула L7-T8 у сосновому лісі ввечері"><figcaption>У лісі</figcaption></figure>
-        <figure class="pl pl--wide"><img src="assets/places/place-beach-terrace.jpg" width="1030" height="499" loading="lazy" decoding="async" alt="Капсули L7 iHOME з терасами на піщаному пляжі"><figcaption>Пляж</figcaption></figure>
-        <figure class="pl"><img src="assets/places/place-alps.jpg" width="1030" height="496" loading="lazy" decoding="async" alt="Капсульний будинок L7-T6 на гірському схилі з краєвидом"><figcaption>На схилі</figcaption></figure>
+        <figure class="pl pl--wide"><img src="assets/places/place-lake-float.webp" width="1400" height="889" loading="lazy" decoding="async" alt="Капсульний будинок L7 iHOME на понтоні на гірському озері"><figcaption>На воді</figcaption></figure>
+        <figure class="pl pl--tall"><img src="assets/places/place-mountain-deck.webp" width="790" height="1013" loading="lazy" decoding="async" alt="Капсула L7-P19 на дерев'яній терасі серед гір"><figcaption>У горах</figcaption></figure>
+        <figure class="pl"><img src="assets/places/place-forest-deck.webp" width="790" height="665" loading="lazy" decoding="async" alt="Дві капсули L7 iHOME на настилі біля лісового озера"><figcaption>Біля озера</figcaption></figure>
+        <figure class="pl"><img src="assets/places/place-family.webp" width="790" height="665" loading="lazy" decoding="async" alt="Родина біля капсульного будинку L7-T8 на терасі в Карпатах"><figcaption>Для родини</figcaption></figure>
+        <figure class="pl pl--wide"><img src="assets/places/place-beach.webp" width="1400" height="584" loading="lazy" decoding="async" alt="Капсульний глемпінг L7 iHOME на морському узбережжі"><figcaption>Глемпінг на узбережжі</figcaption></figure>
+        <figure class="pl"><img src="assets/places/place-forest-lake.webp" width="1231" height="528" loading="lazy" decoding="async" alt="Капсула L7-T8 у сосновому лісі ввечері"><figcaption>У лісі</figcaption></figure>
+        <figure class="pl pl--wide"><img src="assets/places/place-beach-terrace.webp" width="1030" height="499" loading="lazy" decoding="async" alt="Капсули L7 iHOME з терасами на піщаному пляжі"><figcaption>Пляж</figcaption></figure>
+        <figure class="pl"><img src="assets/places/place-alps.webp" width="1030" height="496" loading="lazy" decoding="async" alt="Капсульний будинок L7-T6 на гірському схилі з краєвидом"><figcaption>На схилі</figcaption></figure>
       </div>
       <p class="places-note">Зображення — візуалізації можливих розміщень.</p>
     </div>
@@ -432,7 +430,7 @@
         </details>
         <details>
           <summary>Які моделі капсул є в лінійці?</summary>
-          <p>Три формати: L7-T8 (37.95 м² корисної площі, 4–6 гостей), L7-T6 (28.05 м², 4–6 гостей) і компактна L7-P19 (24.36 м², 1–2 гостей).</p>
+          <p>Три формати: L7-T8 (37.95 м² корисної площі, 4–6 гостей), L7-T6 (28.05 м², 4–6 гостей) і компактна L7-P19 (24.36 м², 1–2 гості).</p>
         </details>
         <details>
           <summary>З чого зроблена капсула?</summary>
@@ -519,7 +517,7 @@
     </div>
   </footer>
 
-  <script src="main.js?v=14"></script>
+  <script src="main.js?v=15"></script>
   <script type="module" src="capsule3d.js?v=17"></script>
 </body>
 </html>

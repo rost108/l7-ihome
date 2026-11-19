@@ -1,24 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://rost108.github.io/l7-ihome/</loc>
-    <lastmod>2026-11-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <lastmod>2026-11-19</lastmod>
+    <image:image><image:loc>https://rost108.github.io/l7-ihome/assets/capsule-360.jpg</image:loc></image:image>
   </url>
   <url>
-    <loc>https://rost108.github.io/l7-ihome/model.html?id=t8</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://rost108.github.io/l7-ihome/t8/</loc>
+    <lastmod>2026-11-19</lastmod>
+    <image:image><image:loc>https://rost108.github.io/l7-ihome/assets/capsule-t8.jpg</image:loc></image:image>
+    <image:image><image:loc>https://rost108.github.io/l7-ihome/assets/renders/t8-01.webp</image:loc></image:image>
+    <image:image><image:loc>https://rost108.github.io/l7-ihome/assets/renders/t8-02.webp</image:loc></image:image>
+    <image:image><image:loc>https://rost108.github.io/l7-ihome/assets/renders/t8-03.webp</image:loc></image:image>
+    <image:image><image:loc>https://rost108.github.io/l7-ihome/assets/renders/t8-04.webp</image:loc></image:image>
+    <image:image><image:loc>https://rost108.github.io/l7-ihome/assets/renders/t8-05.webp</image:loc></image:image>
+    <image:image><image:loc>https://rost108.github.io/l7-ihome/assets/renders/t8-06.webp</image:loc></image:image>
   </url>
   <url>
-    <loc>https://rost108.github.io/l7-ihome/model.html?id=t6</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://rost108.github.io/l7-ihome/t6/</loc>
+    <lastmod>2026-11-19</lastmod>
+    <image:image><image:loc>https://rost108.github.io/l7-ihome/assets/capsule-t6.jpg</image:loc></image:image>
+    <image:image><image:loc>https://rost108.github.io/l7-ihome/assets/renders/t6-01.webp</image:loc></image:image>
+    <image:image><image:loc>https://rost108.github.io/l7-ihome/assets/renders/t6-02.webp</image:loc></image:image>
+    <image:image><image:loc>https://rost108.github.io/l7-ihome/assets/renders/t6-03.webp</image:loc></image:image>
+    <image:image><image:loc>https://rost108.github.io/l7-ihome/assets/renders/t6-04.webp</image:loc></image:image>
+    <image:image><image:loc>https://rost108.github.io/l7-ihome/assets/renders/t6-05.webp</image:loc></image:image>
+    <image:image><image:loc>https://rost108.github.io/l7-ihome/assets/renders/t6-06.webp</image:loc></image:image>
   </url>
   <url>
-    <loc>https://rost108.github.io/l7-ihome/model.html?id=p19</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://rost108.github.io/l7-ihome/p19/</loc>
+    <lastmod>2026-11-19</lastmod>
+    <image:image><image:loc>https://rost108.github.io/l7-ihome/assets/capsule-p19.jpg</image:loc></image:image>
+    <image:image><image:loc>https://rost108.github.io/l7-ihome/assets/renders/p19-01.webp</image:loc></image:image>
+    <image:image><image:loc>https://rost108.github.io/l7-ihome/assets/renders/p19-02.webp</image:loc></image:image>
+    <image:image><image:loc>https://rost108.github.io/l7-ihome/assets/renders/p19-03.webp</image:loc></image:image>
+    <image:image><image:loc>https://rost108.github.io/l7-ihome/assets/renders/p19-04.webp</image:loc></image:image>
+    <image:image><image:loc>https://rost108.github.io/l7-ihome/assets/renders/p19-05.webp</image:loc></image:image>
+    <image:image><image:loc>https://rost108.github.io/l7-ihome/assets/renders/p19-06.webp</image:loc></image:image>
   </url>
 </urlset>

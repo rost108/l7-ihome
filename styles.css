@@ -759,3 +759,8 @@ a.contact-details .big, .contact-details a.big { transition: color var(--dur-fas
 /* хедер: місце під два нові пункти меню */
 .mainnav a { white-space: nowrap; }
 @media (max-width: 1240px) { .nav-phone { display: none; } }
+
+/* SEO: бейдж-підзаголовок став частиною H1 — візуально як раніше */
+.hero-copy h1 { margin-top: 0; }
+.hero-copy h1 .hero-badge { display: block; margin: 0 0 var(--space-5); line-height: 1; font-weight: 500; letter-spacing: normal; }
+.tk h3 .tk-num { display: block; }
